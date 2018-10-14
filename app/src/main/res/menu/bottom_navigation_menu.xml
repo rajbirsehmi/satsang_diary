@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_selected_area"
+        android:icon="@drawable/icon_selected_area"
+        android:title="@string/navigation_selected_area" />
+
+    <item
+        android:id="@+id/navigation_other_area"
+        android:icon="@drawable/icon_other_area"
+        android:title="@string/navigation_other_area" />
+
+    <!--not to be implemented-->
+    <!--<item-->
+        <!--android:id="@+id/navigation_notification"-->
+        <!--android:icon="@drawable/icon_notification"-->
+        <!--android:title="@string/navigation_notification" />-->
+    <item
+        android:id="@+id/navigation_all_shabad_list"
+        android:icon="@drawable/icon_all_shabad"
+        android:title="@string/navigation_all_shabad" />
+
+</menu>
