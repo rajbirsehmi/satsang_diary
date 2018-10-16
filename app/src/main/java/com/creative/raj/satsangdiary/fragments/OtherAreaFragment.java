@@ -2,10 +2,12 @@ package com.creative.raj.satsangdiary.fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.creative.raj.satsangdiary.R;
 
@@ -14,6 +16,8 @@ import com.creative.raj.satsangdiary.R;
  */
 public class OtherAreaFragment extends Fragment {
 
+
+    private FloatingActionButton fabAdd;
 
     public OtherAreaFragment() {
         // Required empty public constructor
@@ -27,4 +31,9 @@ public class OtherAreaFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_other_area, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        fabAdd = getActivity().findViewById(R.id.fab_add);
+    }
 }

@@ -1,11 +1,12 @@
 package com.creative.raj.satsangdiary.fragments;
 
-
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.model.SelectedAreaImpl;
@@ -14,6 +15,7 @@ import com.creative.raj.satsangdiary.presenter.SelectedArea;
 public class SelectedAreaFragment extends Fragment implements SelectedArea {
 
     private SelectedAreaImpl selectedArea;
+    private FloatingActionButton fabAdd;
 
     public SelectedAreaFragment() {
         // Required empty public constructor
@@ -29,7 +31,13 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
     @Override
     public void onResume() {
         super.onResume();
-        selectedArea = new SelectedAreaImpl(this);
+        fabAdd = getActivity().findViewById(R.id.fab_add);
+        selectedArea = new SelectedAreaImpl(this, getContext());
         selectedArea.loadSelectedAreaData();
+    }
+
+    @Override
+    public void notifyNoSelectedAreaDefined(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 }

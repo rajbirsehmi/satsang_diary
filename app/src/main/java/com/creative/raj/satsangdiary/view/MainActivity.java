@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
 
         navigationView = findViewById(R.id.navigation_bar);
         navigationView.setOnNavigationItemSelectedListener(new FragmentChangeListener(this));
+
+        loadInitialFragment();
+    }
+
+    private void loadInitialFragment() {
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_containter, new SelectedAreaFragment()).commit();
+        navigationView.getMenu().findItem(R.id.navigation_selected_area).setChecked(true);
     }
 
     @Override
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         navigationView.getMenu().findItem(R.id.navigation_other_area).setChecked(true);
     }
 
-//    not to be implement
+//    not to be implemented
 //    @Override
 //    public void setNotificationFragment() {
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containter, new NotificationFragment()).commit();
