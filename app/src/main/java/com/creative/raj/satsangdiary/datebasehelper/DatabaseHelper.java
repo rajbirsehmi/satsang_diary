@@ -1,4 +1,4 @@
-package com.creative.raj.satsangdiary.helper;
+package com.creative.raj.satsangdiary.datebasehelper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // creating relation tables
         db.execSQL("create table if not exists area_center_relation(area_id INTEGER REFERENCES area (id) ON DELETE CASCADE, center_id INTEGER REFERENCES center (id) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE if not exists center_shabad_relation (relation_id INTEGER PRIMARY KEY AUTOINCREMENT, center_id   INTEGER REFERENCES center (center_id) ON DELETE CASCADE, shabad_id   INTEGER REFERENCES shabad (shabad_id) ON DELETE CASCADE, remarks_id  INTEGER REFERENCES shabad_remarks (remarks_id) ON DELETE CASCADE)");
+        db.execSQL("CREATE TABLE if not exists center_shabad_relation (relation_id INTEGER PRIMARY KEY AUTOINCREMENT, center_id   INTEGER REFERENCES center (center_id) ON DELETE CASCADE, shabad_id   INTEGER REFERENCES shabad (shabad_id) ON DELETE CASCADE, remarks_id  INTEGER REFERENCES shabad_remarks (remarks_id) ON DELETE CASCADE, date_time varchar(17))");
     }
 
     @Override

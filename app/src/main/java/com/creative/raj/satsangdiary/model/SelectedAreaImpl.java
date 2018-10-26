@@ -4,20 +4,27 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.creative.raj.satsangdiary.helper.DatabaseRetriever;
+import com.creative.raj.satsangdiary.dataholders.selectedarea.DataHolder;
+import com.creative.raj.satsangdiary.datebasehelper.QueryManager;
+import com.creative.raj.satsangdiary.parser.Parser;
 import com.creative.raj.satsangdiary.persistence.Cache;
 import com.creative.raj.satsangdiary.presenter.SelectedArea;
+
+import java.util.ArrayList;
 
 public class SelectedAreaImpl {
 
     private SelectedArea selectedArea;
     private Context context;
     private SQLiteDatabase database;
+    private ArrayList<DataHolder> arrDataHolder;
+    private DataHolder dataHolder;
 
     public SelectedAreaImpl(SelectedArea selectedArea, Context context) {
         this.context = context;
         this.selectedArea = selectedArea;
-        database = DatabaseRetriever.getDatabaseInstance(context);
+        arrDataHolder = new ArrayList<>();
+        dataHolder = new DataHolder();
     }
 
     public void loadSelectedAreaData() {
@@ -26,6 +33,8 @@ public class SelectedAreaImpl {
             selectedArea.notifyNoSelectedAreaDefined("No Selected Area Defined...");
             return;
         }
-        // write query here
+        Cursor centerIdAndName = QueryManager.getCenters(context, currentSelectedAreaId);
+        String[][] arrCenterIdAndName = Parser.parseCenterIdAndName(centerIdAndName);
+
     }
 }

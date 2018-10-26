@@ -38,5 +38,10 @@ dependencies {
     // Mockito Testing Libs
     testImplementation 'org.mockito:mockito-core:2.7.22'
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+
+    // Annotation Processor
     implementation 'org.jetbrains:annotations-java5:15.0'
+
+    // ExpandableRecyclerView Library
+    implementation 'com.thoughtbot:expandablerecyclerview:1.3'
 }
