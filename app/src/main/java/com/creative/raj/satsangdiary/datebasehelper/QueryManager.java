@@ -54,4 +54,12 @@ public class QueryManager {
         return cursor;
     }
 
+    public static Cursor getAllShabads(Context context) {
+        SQLiteDatabase database = new DatabaseRetriever(context).getDatabase();
+        Cursor cursor = database.rawQuery("SELECT " +
+                "       shabad_id, shabad_text " +
+                "  FROM shabad", null);
+        database.close();
+        return cursor;
+    }
 }

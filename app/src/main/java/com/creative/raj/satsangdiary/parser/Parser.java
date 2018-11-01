@@ -3,11 +3,13 @@ package com.creative.raj.satsangdiary.parser;
 import android.database.Cursor;
 
 import com.creative.raj.satsangdiary.dataholders.selectedarea.ExpandedData;
+import com.creative.raj.satsangdiary.dataholders.shabad.DataHolder;
 import com.creative.raj.satsangdiary.datebasehelper.QueryManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Parser {
     public static String[][] parseCenterIdAndName(Cursor cursor) {
@@ -63,6 +65,18 @@ public class Parser {
         }
         cursor.close();
         return arrTemp;
+    }
+
+    public static List<DataHolder> parseShabadList(Cursor cursor) {
+        List<DataHolder> list = new ArrayList<>();
+        DataHolder holder;
+        while (cursor.moveToNext()) {
+            holder = new DataHolder();
+            holder.setShabadId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("shabad_id"))));
+            holder.setShabad(cursor.getString(cursor.getColumnIndex("shabad_text")));
+            list.add(holder);
+        }
+        return list;
     }
 
     public static String parseDateTime(long timeInMillis) {

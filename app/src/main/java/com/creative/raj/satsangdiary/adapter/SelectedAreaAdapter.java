@@ -62,7 +62,7 @@ public class SelectedAreaAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String centerName = (String) getGroup(groupPosition);
-        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_selected_area_center, parent, false);
+        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_selected_area_center, parent, false);
         ((TextView) convertView.findViewById(R.id.tv_center_name)).setText(centerName);
         return convertView;
     }
@@ -70,7 +70,7 @@ public class SelectedAreaAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ExpandedData expandedData = (ExpandedData) getChild(groupPosition, childPosition);
-        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_selected_area_shabad_detail, parent, false);
+        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_selected_area_shabad_detail, parent, false);
         ((TextView) convertView.findViewById(R.id.tv_shabad)).setText(expandedData.getShabad());
         ((TextView) convertView.findViewById(R.id.tv_date_time)).setText(Parser.parseDateTime(expandedData.getDateTime()));
         ((TextView) convertView.findViewById(R.id.tv_remarks)).setText(expandedData.getRemarks());

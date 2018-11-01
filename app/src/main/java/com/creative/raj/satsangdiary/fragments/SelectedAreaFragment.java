@@ -34,7 +34,7 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
     @Override
     public void onResume() {
         super.onResume();
-        fabAdd = getActivity().findViewById(R.id.fab_add);
+//        fabAdd = getActivity().findViewById(R.id.fab_add);
         elvSelecedArea = getActivity().findViewById(R.id.elv_selected_area);
         selectedArea = new SelectedAreaImpl(this, getContext());
         selectedArea.loadSelectedAreaData();

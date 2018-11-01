@@ -34,15 +34,50 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <android.support.design.widget.FloatingActionButton
+
+    <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        android:tint="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/icon_add" />
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_openDirection="up"
+        app:menu_labels_colorNormal="@android:color/transparent"
+        app:menu_labels_textColor="@android:color/black"
+        app:menu_showShadow="true">
+
+        <com.github.clans.fab.FloatingActionButton
+
+            android:id="@+id/fab_add_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="@string/label_add_notification"
+            app:fab_size="mini"
+            android:src="@drawable/icon_notification"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_add_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="@string/label_add_entry"
+            app:fab_size="mini"
+            android:src="@drawable/icon_add_entry"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab_add"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--android:clickable="true"-->
+    <!--android:tint="@android:color/white"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/navigation_bar"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:srcCompat="@drawable/icon_add" />-->
 
 </android.support.constraint.ConstraintLayout>
