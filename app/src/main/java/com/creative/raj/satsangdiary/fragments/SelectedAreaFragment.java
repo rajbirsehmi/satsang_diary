@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.creative.raj.satsangdiary.R;
+import com.creative.raj.satsangdiary.adapter.SelectedAreaAdapter;
 import com.creative.raj.satsangdiary.model.SelectedAreaImpl;
 import com.creative.raj.satsangdiary.presenter.SelectedArea;
 
@@ -16,6 +18,7 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
 
     private SelectedAreaImpl selectedArea;
     private FloatingActionButton fabAdd;
+    private ExpandableListView elvSelecedArea;
 
     public SelectedAreaFragment() {
         // Required empty public constructor
@@ -32,6 +35,7 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
     public void onResume() {
         super.onResume();
         fabAdd = getActivity().findViewById(R.id.fab_add);
+        elvSelecedArea = getActivity().findViewById(R.id.elv_selected_area);
         selectedArea = new SelectedAreaImpl(this, getContext());
         selectedArea.loadSelectedAreaData();
     }
@@ -39,5 +43,10 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
     @Override
     public void notifyNoSelectedAreaDefined(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void attachAdapterToList(SelectedAreaAdapter areaAdapter) {
+        elvSelecedArea.setAdapter(areaAdapter);
     }
 }
