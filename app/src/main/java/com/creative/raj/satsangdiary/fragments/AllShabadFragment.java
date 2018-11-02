@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AllShabadAdapter;
@@ -49,5 +50,10 @@ public class AllShabadFragment extends Fragment implements AllShabad {
     @Override
     public void attachAdapterToView(AllShabadAdapter shabadAdapter) {
         rvAllShabad.setAdapter(shabadAdapter);
+    }
+
+    @Override
+    public void notifyNoShabadFound(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

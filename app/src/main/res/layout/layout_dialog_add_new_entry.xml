@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="@string/label_dialog_header_add_new_entry"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/dialog_header" />l
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_area_name"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_subtext" />
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_area_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_actv" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_center_name"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_subtext" />
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_center_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_actv" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_shabad_name"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_subtext" />
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_shabad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_actv" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_remarks"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_subtext" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_first_sewa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_first_sewa" />
+
+        <RadioButton
+            android:id="@+id/rb_second_sewa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_second_sewa" />
+
+        <RadioButton
+            android:id="@+id/rb_special_sewa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:text="@string/label_special_sewa" />
+
+        <RadioButton
+            android:id="@+id/rb_none"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:checked="true"
+            android:text="@string/label_none" />
+    </RadioGroup>
+
+    <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_select_date_time"
+        android:textAllCaps="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_dialog_okay"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_okay"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_dialog_dismiss"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_dismiss"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</LinearLayout>

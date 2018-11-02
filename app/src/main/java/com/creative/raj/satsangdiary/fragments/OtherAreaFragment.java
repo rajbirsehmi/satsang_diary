@@ -34,6 +34,5 @@ public class OtherAreaFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fabAdd = getActivity().findViewById(R.id.fab_add);
     }
 }

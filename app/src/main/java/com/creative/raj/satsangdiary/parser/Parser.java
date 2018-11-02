@@ -76,6 +76,7 @@ public class Parser {
             holder.setShabad(cursor.getString(cursor.getColumnIndex("shabad_text")));
             list.add(holder);
         }
+        cursor.close();
         return list;
     }
 

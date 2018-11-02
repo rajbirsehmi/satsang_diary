@@ -4,4 +4,5 @@ import com.creative.raj.satsangdiary.adapter.AllShabadAdapter;
 
 public interface AllShabad {
     void attachAdapterToView(AllShabadAdapter shabadAdapter);
+    void notifyNoShabadFound(String message);
 }

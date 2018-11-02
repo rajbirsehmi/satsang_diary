@@ -17,7 +17,6 @@ public class QueryManager {
                         "       INNER JOIN" +
                         "       area ON area_center_relation.area_id = area.area_id" +
                         " WHERE area.area_id = " + areaId, null);
-        database.close();
         return cursor;
     }
 
@@ -27,7 +26,6 @@ public class QueryManager {
                 "SELECT center_name" +
                         " FROM center" +
                         " WHERE center_id = " + centerId, null);
-        database.close();
         return cursor;
     }
 
@@ -50,7 +48,19 @@ public class QueryManager {
                 "       INNER JOIN" +
                 "       shabad_remarks ON shabad_remarks.remarks_id = center_shabad_relation.remarks_id" +
                 " WHERE center.center_id = " + centerId, null);
-        database.close();
+        return cursor;
+    }
+
+    public static Cursor getOtherAreaIds(Context context, int currentAreaId) {
+        SQLiteDatabase database = new DatabaseRetriever(context).getDatabase();
+        Cursor cursor = database.rawQuery(
+                "SELECT center.center_id" +
+                        "  FROM area_center_relation" +
+                        "       INNER JOIN" +
+                        "       center ON area_center_relation.center_id = center.center_id" +
+                        "       INNER JOIN" +
+                        "       area ON area_center_relation.area_id = area.area_id" +
+                        " WHERE area.area_id != " + currentAreaId, null);
         return cursor;
     }
 
@@ -59,7 +69,6 @@ public class QueryManager {
         Cursor cursor = database.rawQuery("SELECT " +
                 "       shabad_id, shabad_text " +
                 "  FROM shabad", null);
-        database.close();
         return cursor;
     }
 }

@@ -2,7 +2,6 @@ package com.creative.raj.satsangdiary.model;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.creative.raj.satsangdiary.adapter.SelectedAreaAdapter;
 import com.creative.raj.satsangdiary.dataholders.selectedarea.DataHolder;
@@ -19,7 +18,6 @@ public class SelectedAreaImpl {
 
     private SelectedArea selectedArea;
     private Context context;
-    private SQLiteDatabase database;
     private List<DataHolder> arrDataHolder;
 
     public SelectedAreaImpl(SelectedArea selectedArea, Context context) {
@@ -37,7 +35,6 @@ public class SelectedAreaImpl {
         Cursor centerIds = QueryManager.getCenterIds(context, currentSelectedAreaId);
         String[] arrCenterIds = Parser.parseCenterIds(centerIds);
 
-
         for (String centerId : arrCenterIds) {
             DataHolder dataHolder = new DataHolder();
             int _centerId = Integer.parseInt(centerId);
@@ -48,7 +45,7 @@ public class SelectedAreaImpl {
             dataHolder.setCenterId(_centerId);
 
             Cursor cursorMoreDetail = QueryManager.getShabadDoneInCenter(context, _centerId);
-            ArrayList<ExpandedData> arrExpandedData = Parser.parseShabadAndCenterData(cursorCenterName);
+            ArrayList<ExpandedData> arrExpandedData = Parser.parseShabadAndCenterData(cursorMoreDetail);
             dataHolder.setExpandedData(arrExpandedData);
             arrDataHolder.add(dataHolder);
         }

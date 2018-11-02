@@ -23,6 +23,10 @@ public class AllShabadImpl {
     public void loadAllShabad() {
         Cursor cursorAllShabad = QueryManager.getAllShabads(context);
         List<DataHolder> listDataHolder = Parser.parseShabadList(cursorAllShabad);
+        if (listDataHolder.size() == 0) {
+            allShabad.notifyNoShabadFound("No Shabad Found...");
+            return;
+        }
         allShabad.attachAdapterToView(new AllShabadAdapter(listDataHolder, context));
     }
 }

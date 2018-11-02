@@ -10,4 +10,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_add_notification">Add Notification...</string>
     <string name="label_add_entry">Add New Entry...</string>
+    <string name="label_dialog_header_add_new_entry">Add New Entry</string>
+    <string name="label_area_name">Area Name...</string>
+    <string name="label_center_name">Center Name...</string>
+    <string name="label_shabad_name">Shabad...</string>
+    <string name="label_remarks">Remarks...</string>
+    <string name="label_first_sewa">1st Sewa</string>
+    <string name="label_second_sewa">2nd Sewa</string>
+    <string name="label_special_sewa">Special Sewa</string>
+    <string name="label_none">None</string>
+    <string name="label_select_date_time">Select Date and Time...</string>
+    <string name="label_okay">Okay</string>
+    <string name="label_dismiss">Dismiss</string>
 </resources>
