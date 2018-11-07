@@ -1,8 +1,6 @@
 package com.creative.raj.satsangdiary.fragments;
 
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +11,13 @@ import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.SelectedAreaAdapter;
 import com.creative.raj.satsangdiary.model.SelectedAreaImpl;
 import com.creative.raj.satsangdiary.presenter.SelectedArea;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.fragment.app.Fragment;
 
 public class SelectedAreaFragment extends Fragment implements SelectedArea {
 
     private SelectedAreaImpl selectedArea;
-    private FloatingActionButton fabAdd;
     private ExpandableListView elvSelecedArea;
 
     public SelectedAreaFragment() {

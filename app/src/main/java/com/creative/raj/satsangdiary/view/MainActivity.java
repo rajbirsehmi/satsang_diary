@@ -3,6 +3,8 @@ package com.creative.raj.satsangdiary.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,7 +21,7 @@ import com.creative.raj.satsangdiary.utils.ActivityUtils;
 import com.creative.raj.satsangdiary.utils.FragmentConstants;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class MainActivity extends AppCompatActivity implements FragmentProcessor {
+public class MainActivity extends AppCompatActivity implements FragmentProcessor, EntryProcessor {
 
     private BottomNavigationView navigationView;
     private FloatingActionMenu fabMenu;
@@ -35,10 +37,18 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         navigationView = findViewById(R.id.navigation_bar);
         navigationView.setOnNavigationItemSelectedListener(new FragmentChangeListener(this));
 
+
+
         findViewById(R.id.fab_add_entry).setOnClickListener((v) -> {
             fabMenu.close(true);
             Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.layout_dialog_add_new_entry);
+            dialog.findViewById(R.id.btn_dialog_okay).setOnClickListener((view)-> {
+
+            });
+            dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view)-> {
+                dialog.dismiss();
+            });
             dialog.create();
             dialog.show();
             dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

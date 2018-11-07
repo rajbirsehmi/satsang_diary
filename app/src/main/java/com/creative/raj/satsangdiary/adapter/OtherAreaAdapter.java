@@ -73,7 +73,7 @@ public class OtherAreaAdapter extends BaseExpandableListAdapter {
         ((TextView) convertView.findViewById(R.id.tv_shabad)).setText(expandedData.getShabad());
         ((TextView) convertView.findViewById(R.id.tv_date_time)).setText(Parser.parseDateTime(expandedData.getDatetime()));
         ((TextView) convertView.findViewById(R.id.tv_remarks)).setText(expandedData.getRemarks());
-        return null;
+        return convertView;
     }
 
     @Override

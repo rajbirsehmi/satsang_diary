@@ -4,7 +4,6 @@ import android.database.Cursor;
 
 import com.creative.raj.satsangdiary.dataholders.selectedarea.ExpandedData;
 import com.creative.raj.satsangdiary.dataholders.shabad.DataHolder;
-import com.creative.raj.satsangdiary.datebasehelper.QueryManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,5 +81,46 @@ public class Parser {
 
     public static String parseDateTime(long timeInMillis) {
         return new SimpleDateFormat("DDD - dd MMM, yyyy").format(new Date(timeInMillis));
+    }
+
+    public static int[] parseOtherAreaIds(Cursor cursor) {
+        int[] ids = new int[cursor.getCount()];
+        int index = 0;
+        while (cursor.moveToNext()) {
+            ids[index] = Integer.parseInt(cursor.getString(cursor.getColumnIndex("area_id")));
+            index++;
+        }
+        return ids;
+    }
+
+    public static String parseOtherAreaName(Cursor cursorOtherAreaName) {
+        if (!cursorOtherAreaName.moveToNext()) {
+            return null;
+        }
+        return cursorOtherAreaName.getString(cursorOtherAreaName.getColumnIndex("area_name"));
+    }
+
+    public static int[] parseOtherCenterIds(Cursor cursorOtherCenterIds) {
+        int[] ids = new int[cursorOtherCenterIds.getCount()];
+        int index = 0;
+        while (cursorOtherCenterIds.moveToNext()) {
+            ids[index] = Integer.parseInt(cursorOtherCenterIds.getString(cursorOtherCenterIds.getColumnIndex("center_id")));
+            index++;
+        }
+        return ids;
+    }
+
+    public static ArrayList<com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData> parseShabadDoneinOtherCenters(Cursor cursorShabadDoneInOtherCenters) {
+        ArrayList<com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData> list = new ArrayList<>();
+        while (cursorShabadDoneInOtherCenters.moveToNext()) {
+            com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData expandedData = new com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData();
+            expandedData.setRelationId(Integer.parseInt(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("relation_id"))));
+            expandedData.setDatetime(Long.parseLong(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("date_time"))));
+            expandedData.setCenterName(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("center_name")));
+            expandedData.setRemarks(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("remarks")));
+            expandedData.setShabad(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("shabad")));
+            list.add(expandedData);
+        }
+        return list;
     }
 }
