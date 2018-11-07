@@ -50,6 +50,6 @@ public class SelectedAreaImpl {
             arrDataHolder.add(dataHolder);
         }
 
-        selectedArea.attachAdapterToList(new SelectedAreaAdapter(context, arrDataHolder));
+        selectedArea.attachAdapterToList(new SelectedAreaAdapter(arrDataHolder));
     }
 }

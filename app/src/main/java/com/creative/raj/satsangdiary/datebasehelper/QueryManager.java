@@ -53,14 +53,7 @@ public class QueryManager {
 
     public static Cursor getOtherAreaIds(Context context, int currentAreaId) {
         SQLiteDatabase database = new DatabaseRetriever(context).getDatabase();
-        Cursor cursor = database.rawQuery(
-                "SELECT center.center_id" +
-                        "  FROM area_center_relation" +
-                        "       INNER JOIN" +
-                        "       center ON area_center_relation.center_id = center.center_id" +
-                        "       INNER JOIN" +
-                        "       area ON area_center_relation.area_id = area.area_id" +
-                        " WHERE area.area_id != " + currentAreaId, null);
+        Cursor cursor = database.rawQuery("SELECT area_id FROM area WHERE area_id != " + currentAreaId, null);
         return cursor;
     }
 

@@ -8,17 +8,17 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.creative.raj.satsangdiary.R;
-import com.creative.raj.satsangdiary.dataholders.selectedarea.DataHolder;
-import com.creative.raj.satsangdiary.dataholders.selectedarea.ExpandedData;
+import com.creative.raj.satsangdiary.dataholders.otherarea.DataHolder;
+import com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData;
 import com.creative.raj.satsangdiary.parser.Parser;
 
 import java.util.List;
 
-public class SelectedAreaAdapter extends BaseExpandableListAdapter {
+public class OtherAreaAdapter extends BaseExpandableListAdapter {
 
     private List<DataHolder> listDataHolder;
 
-    public SelectedAreaAdapter(List<DataHolder> listDataHolder) {
+    public OtherAreaAdapter(List<DataHolder> listDataHolder) {
         this.listDataHolder = listDataHolder;
     }
 
@@ -34,7 +34,7 @@ public class SelectedAreaAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return listDataHolder.get(groupPosition).getCenterName();
+        return listDataHolder.get(groupPosition).getAreaName();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class SelectedAreaAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getGroupId(int groupPosition) {
-        return listDataHolder.get(groupPosition).getCenterId();
+        return listDataHolder.get(groupPosition).getAreaId();
     }
 
     @Override
@@ -59,20 +59,21 @@ public class SelectedAreaAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String centerName = (String) getGroup(groupPosition);
-        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_selected_area_center, parent, false);
-        ((TextView) convertView.findViewById(R.id.tv_center_name)).setText(centerName);
+        String areaName = (String) getGroup(groupPosition);
+        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_other_area_name, parent, false);
+        ((TextView) convertView.findViewById(R.id.tv_area_name)).setText(areaName);
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ExpandedData expandedData = (ExpandedData) getChild(groupPosition, childPosition);
-        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_selected_area_shabad_detail, parent, false);
+        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_other_center_shabad_detail, parent, false);
+        ((TextView) convertView.findViewById(R.id.tv_center_name)).setText(expandedData.getCenterName());
         ((TextView) convertView.findViewById(R.id.tv_shabad)).setText(expandedData.getShabad());
-        ((TextView) convertView.findViewById(R.id.tv_date_time)).setText(Parser.parseDateTime(expandedData.getDateTime()));
+        ((TextView) convertView.findViewById(R.id.tv_date_time)).setText(Parser.parseDateTime(expandedData.getDatetime()));
         ((TextView) convertView.findViewById(R.id.tv_remarks)).setText(expandedData.getRemarks());
-        return convertView;
+        return null;
     }
 
     @Override

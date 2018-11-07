@@ -73,21 +73,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_first_sewa" />
+            android:text="@string/label_first_sewa"/>
 
         <RadioButton
             android:id="@+id/rb_second_sewa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_second_sewa" />
+            android:text="@string/label_second_sewa"/>
 
         <RadioButton
             android:id="@+id/rb_special_sewa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:text="@string/label_special_sewa" />
+            android:text="@string/label_special_sewa"/>
 
         <RadioButton
             android:id="@+id/rb_none"
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:checked="true"
-            android:text="@string/label_none" />
+            android:text="@string/label_none"/>
     </RadioGroup>
 
     <Button
@@ -116,7 +116,7 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_okay"
+            android:text="@string/label_save_new_entry"
             android:textAllCaps="false" />
 
         <Button

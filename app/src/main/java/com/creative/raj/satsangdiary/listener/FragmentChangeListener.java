@@ -1,7 +1,7 @@
 package com.creative.raj.satsangdiary.listener;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 
 import com.creative.raj.satsangdiary.R;
