@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.creative.raj.satsangdiary.persistence.Cache;
 
+import java.util.List;
+
 public class QueryManager {
 
     // this will return the Center IDs from the specified area ID.
@@ -104,6 +106,28 @@ public class QueryManager {
                 "       INNER JOIN" +
                 "       shabad_remarks ON shabad_remarks.remarks_id = center_shabad_relation.remarks_id" +
                 " WHERE area.area_id = " + currentAreaId, null);
-        return null;
+        return cursor;
     }
+
+    public static Cursor getAllAreas(Context context) {
+        SQLiteDatabase database = new DatabaseRetriever(context).getDatabase();
+        Cursor cursor = database.rawQuery("SELECT *" +
+                "  FROM area" +
+                " ORDER BY area_name ASC", null);
+        return cursor;
+    }
+
+    public static Cursor getCenters(Context context, int areaId) {
+        SQLiteDatabase database = new DatabaseRetriever(context).getDatabase();
+        Cursor cursor = database.rawQuery("SELECT center.center_id," +
+                "       center_name" +
+                "  FROM area_center_relation" +
+                "       INNER JOIN" +
+                "       center ON area_center_relation.center_id = center.center_id" +
+                "       INNER JOIN" +
+                "       area ON area_center_relation.area_id = area.area_id" +
+                " WHERE area.area_id = " + areaId, null);
+        return cursor;
+    }
+
 }

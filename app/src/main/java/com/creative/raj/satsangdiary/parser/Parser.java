@@ -2,6 +2,9 @@ package com.creative.raj.satsangdiary.parser;
 
 import android.database.Cursor;
 
+import com.creative.raj.satsangdiary.dataholders.populators.Area;
+import com.creative.raj.satsangdiary.dataholders.populators.Center;
+import com.creative.raj.satsangdiary.dataholders.populators.Shabad;
 import com.creative.raj.satsangdiary.dataholders.selectedarea.ExpandedData;
 import com.creative.raj.satsangdiary.dataholders.shabad.DataHolder;
 
@@ -120,6 +123,42 @@ public class Parser {
             expandedData.setRemarks(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("remarks")));
             expandedData.setShabad(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("shabad")));
             list.add(expandedData);
+        }
+        return list;
+    }
+
+    public static List<Area> parseAllAreas(Cursor cursorAllAreas) {
+        List<Area> list = new ArrayList<>();
+        Area area;
+        while (cursorAllAreas.moveToNext()) {
+            area = new Area();
+            area.setId(Integer.parseInt(cursorAllAreas.getString(cursorAllAreas.getColumnIndex("area_id"))));
+            area.setName(cursorAllAreas.getString(cursorAllAreas.getColumnIndex("area_name")));
+            list.add(area);
+        }
+        return list;
+    }
+
+    public static List<Center> parseAssociatedCenters(Cursor cursor) {
+        List<Center> list = new ArrayList<>();
+        Center center;
+        while (cursor.moveToNext()) {
+            center = new Center();
+            center.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("center_id"))));
+            center.setName(cursor.getString(cursor.getColumnIndex("center_name")));
+            list.add(center);
+        }
+        return list;
+    }
+
+    public static List<Shabad> parseAllShabads(Cursor cursorAllShabads) {
+        List<Shabad> list = new ArrayList<>();
+        Shabad shabad;
+        while (cursorAllShabads.moveToNext()) {
+            shabad = new Shabad();
+            shabad.setId(Integer.parseInt(cursorAllShabads.getString(cursorAllShabads.getColumnIndex("shabad_id"))));
+            shabad.setText(cursorAllShabads.getString(cursorAllShabads.getColumnIndex("shabad_text")));
+            list.add(shabad);
         }
         return list;
     }

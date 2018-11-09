@@ -3,28 +3,36 @@ package com.creative.raj.satsangdiary.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.creative.raj.satsangdiary.presenter.EntryProcessor;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 
 import com.creative.raj.satsangdiary.R;
+import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
+import com.creative.raj.satsangdiary.adapter.AutoCompleteAssociatedCenterAdapter;
+import com.creative.raj.satsangdiary.adapter.AutoCompleteShabadAdapter;
 import com.creative.raj.satsangdiary.fragments.AllShabadFragment;
 import com.creative.raj.satsangdiary.fragments.OtherAreaFragment;
 import com.creative.raj.satsangdiary.fragments.SelectedAreaFragment;
 import com.creative.raj.satsangdiary.listener.FragmentChangeListener;
+import com.creative.raj.satsangdiary.model.DataRetrieverImpl;
+import com.creative.raj.satsangdiary.presenter.DataRetriever;
+import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.creative.raj.satsangdiary.presenter.FragmentProcessor;
 import com.creative.raj.satsangdiary.utils.ActivityUtils;
 import com.creative.raj.satsangdiary.utils.FragmentConstants;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements FragmentProcessor, EntryProcessor {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity implements FragmentProcessor, EntryProcessor, DataRetriever {
 
     private BottomNavigationView navigationView;
     private FloatingActionMenu fabMenu;
+    private DataRetrieverImpl dataRetriever;
+    private AutoCompleteTextView actvArea, actvCenter, actvShabad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +44,41 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
 
         navigationView = findViewById(R.id.navigation_bar);
         navigationView.setOnNavigationItemSelectedListener(new FragmentChangeListener(this));
-
-
+        dataRetriever = new DataRetrieverImpl(getBaseContext(), this);
+        dataRetriever.getAllAreas();
+        dataRetriever.getAllShabads();
 
         findViewById(R.id.fab_add_entry).setOnClickListener((v) -> {
             fabMenu.close(true);
-            Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.layout_dialog_add_new_entry);
-            dialog.findViewById(R.id.btn_dialog_okay).setOnClickListener((view)-> {
-
-            });
-            dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view)-> {
-                dialog.dismiss();
-            });
-            dialog.create();
-            dialog.show();
-            dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            raiseDialog();
         });
 
         findViewById(R.id.fab_add_notification).setOnClickListener((v) -> {
             fabMenu.close(true);
         });
         loadInitialFragment();
+    }
+
+    private void raiseDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.layout_dialog_add_new_entry);
+        dialog.setCancelable(false);
+        actvArea = dialog.findViewById(R.id.actv_area_name);
+        actvCenter = dialog.findViewById(R.id.actv_center_name);
+        actvShabad = dialog.findViewById(R.id.actv_shabad);
+        actvArea.setOnItemClickListener((parent, view, position, id) -> {
+            int areaId = Integer.parseInt(view.getTag().toString());
+            dataRetriever.getAllAssociatedCenters(areaId);
+        });
+
+        dialog.findViewById(R.id.btn_dialog_okay).setOnClickListener((view) -> {
+        });
+        dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view) -> {
+            dialog.dismiss();
+        });
+        dialog.create();
+        dialog.show();
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     private void loadInitialFragment() {
@@ -106,5 +127,20 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         FragmentConstants.setCurrentFragmentId(FragmentConstants.SHABAD_LIST);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containter, new AllShabadFragment()).commit();
         navigationView.getMenu().findItem(R.id.navigation_all_shabad_list).setChecked(true);
+    }
+
+    @Override
+    public void setAreaAdapter(AutoCompleteAllAreaAdapter autoCompleteAllAreaAdapter) {
+        actvArea.setAdapter(autoCompleteAllAreaAdapter);
+    }
+
+    @Override
+    public void setCenterAdapter(AutoCompleteAssociatedCenterAdapter autoCompleteAssociatedCenterAdapter) {
+        actvCenter.setAdapter(autoCompleteAssociatedCenterAdapter);
+    }
+
+    @Override
+    public void setShabadAdapter(AutoCompleteShabadAdapter autoCompleteShabadAdapter) {
+        actvCenter.setAdapter(autoCompleteShabadAdapter);
     }
 }
