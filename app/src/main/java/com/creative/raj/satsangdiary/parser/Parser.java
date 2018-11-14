@@ -1,12 +1,15 @@
 package com.creative.raj.satsangdiary.parser;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.creative.raj.satsangdiary.dataholders.populators.Area;
 import com.creative.raj.satsangdiary.dataholders.populators.Center;
 import com.creative.raj.satsangdiary.dataholders.populators.Shabad;
 import com.creative.raj.satsangdiary.dataholders.selectedarea.ExpandedData;
 import com.creative.raj.satsangdiary.dataholders.shabad.DataHolder;
+import com.creative.raj.satsangdiary.lists.AreaList;
+import com.creative.raj.satsangdiary.lists.CenterList;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -128,27 +131,27 @@ public class Parser {
     }
 
     public static List<Area> parseAllAreas(Cursor cursorAllAreas) {
-        List<Area> list = new ArrayList<>();
+        AreaList.createInstance();
         Area area;
         while (cursorAllAreas.moveToNext()) {
             area = new Area();
             area.setId(Integer.parseInt(cursorAllAreas.getString(cursorAllAreas.getColumnIndex("area_id"))));
             area.setName(cursorAllAreas.getString(cursorAllAreas.getColumnIndex("area_name")));
-            list.add(area);
+            AreaList.addAreaItemToList(area);
         }
-        return list;
+        return AreaList.getInstance();
     }
 
     public static List<Center> parseAssociatedCenters(Cursor cursor) {
-        List<Center> list = new ArrayList<>();
+        CenterList.createInstance();
         Center center;
         while (cursor.moveToNext()) {
             center = new Center();
             center.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("center_id"))));
             center.setName(cursor.getString(cursor.getColumnIndex("center_name")));
-            list.add(center);
+            CenterList.addCenterItemToList(center);
         }
-        return list;
+        return CenterList.getInstance();
     }
 
     public static List<Shabad> parseAllShabads(Cursor cursorAllShabads) {

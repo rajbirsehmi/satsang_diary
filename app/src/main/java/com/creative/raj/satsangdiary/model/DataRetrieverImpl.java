@@ -11,6 +11,8 @@ import com.creative.raj.satsangdiary.dataholders.populators.Area;
 import com.creative.raj.satsangdiary.dataholders.populators.Center;
 import com.creative.raj.satsangdiary.dataholders.populators.Shabad;
 import com.creative.raj.satsangdiary.datebasehelper.QueryManager;
+import com.creative.raj.satsangdiary.lists.AreaList;
+import com.creative.raj.satsangdiary.lists.CenterList;
 import com.creative.raj.satsangdiary.parser.Parser;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
 
@@ -28,14 +30,14 @@ public class DataRetrieverImpl {
 
     public void getAllAreas() {
         Cursor cursorAllArea = QueryManager.getAllAreas(context);
-        List<Area> listArea = Parser.parseAllAreas(cursorAllArea);
-        dataRetriever.setAreaAdapter(new AutoCompleteAllAreaAdapter(context, R.layout.template_autocomplete_list_item, listArea));
+        Parser.parseAllAreas(cursorAllArea);
+        dataRetriever.setAreaAdapter(new AutoCompleteAllAreaAdapter(context, R.layout.template_autocomplete_list_item, AreaList.getInstance()));
     }
 
     public void getAllAssociatedCenters(int areaId) {
         Cursor cursorCenters = QueryManager.getCenters(context, areaId);
-        List<Center> listCenters = Parser.parseAssociatedCenters(cursorCenters);
-        dataRetriever.setCenterAdapter(new AutoCompleteAssociatedCenterAdapter(context, R.layout.template_autocomplete_list_item, listCenters));
+        Parser.parseAssociatedCenters(cursorCenters);
+        dataRetriever.setCenterAdapter(new AutoCompleteAssociatedCenterAdapter(context, R.layout.template_autocomplete_list_item, CenterList.getInstance()));
     }
 
     public void getAllShabads() {

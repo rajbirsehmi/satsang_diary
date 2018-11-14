@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.creative.raj.satsangdiary.persistence.Cache;
 
-import java.util.List;
-
 public class QueryManager {
 
     // this will return the Center IDs from the specified area ID.
@@ -130,4 +128,8 @@ public class QueryManager {
         return cursor;
     }
 
+    public static void addNewArea(Context context, String areaName) {
+        SQLiteDatabase database = new DatabaseRetriever(context).getDatabase();
+        database.rawQuery("INSERT INTO area (area_name) values ('" + areaName + "');", null);
+    }
 }

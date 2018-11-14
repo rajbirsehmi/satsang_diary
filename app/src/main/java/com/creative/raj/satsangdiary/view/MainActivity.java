@@ -16,7 +16,9 @@ import com.creative.raj.satsangdiary.fragments.AllShabadFragment;
 import com.creative.raj.satsangdiary.fragments.OtherAreaFragment;
 import com.creative.raj.satsangdiary.fragments.SelectedAreaFragment;
 import com.creative.raj.satsangdiary.listener.FragmentChangeListener;
+import com.creative.raj.satsangdiary.lists.AreaList;
 import com.creative.raj.satsangdiary.model.DataRetrieverImpl;
+import com.creative.raj.satsangdiary.model.EntryProcessorImpl;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
 import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.creative.raj.satsangdiary.presenter.FragmentProcessor;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     private FloatingActionMenu fabMenu;
     private DataRetrieverImpl dataRetriever;
     private AutoCompleteTextView actvArea, actvCenter, actvShabad;
+    private EntryProcessorImpl entryProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         navigationView = findViewById(R.id.navigation_bar);
         navigationView.setOnNavigationItemSelectedListener(new FragmentChangeListener(this));
         dataRetriever = new DataRetrieverImpl(getBaseContext(), this);
-        dataRetriever.getAllAreas();
-        dataRetriever.getAllShabads();
+        entryProcessor = new EntryProcessorImpl(getBaseContext(), MainActivity.this);
 
         findViewById(R.id.fab_add_entry).setOnClickListener((v) -> {
             fabMenu.close(true);
@@ -66,12 +68,13 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         actvArea = dialog.findViewById(R.id.actv_area_name);
         actvCenter = dialog.findViewById(R.id.actv_center_name);
         actvShabad = dialog.findViewById(R.id.actv_shabad);
+        dataRetriever.getAllAreas();
+        dataRetriever.getAllShabads();
         actvArea.setOnItemClickListener((parent, view, position, id) -> {
-            int areaId = Integer.parseInt(view.getTag().toString());
-            dataRetriever.getAllAssociatedCenters(areaId);
+            entryProcessor.setSelectedAreaPosition(position);
         });
-
-        dialog.findViewById(R.id.btn_dialog_okay).setOnClickListener((view) -> {
+        dialog.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
+            entryProcessor.addEntry();
         });
         dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view) -> {
             dialog.dismiss();
@@ -142,5 +145,20 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     @Override
     public void setShabadAdapter(AutoCompleteShabadAdapter autoCompleteShabadAdapter) {
         actvCenter.setAdapter(autoCompleteShabadAdapter);
+    }
+
+    @Override
+    public int getAreaId() {
+        return AreaList.getAreaItemFromList(entryProcessor.getSelectedAreaPosition()).getId();
+    }
+
+    @Override
+    public String getAreaName() {
+        return AreaList.getAreaItemFromList(entryProcessor.getSelectedAreaPosition()).getName();
+    }
+
+    @Override
+    public String getSelectedAreaText() {
+        return actvArea.getText().toString();
     }
 }

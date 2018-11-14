@@ -112,7 +112,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_dialog_okay"
+            android:id="@+id/btn_dialog_save_entry"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

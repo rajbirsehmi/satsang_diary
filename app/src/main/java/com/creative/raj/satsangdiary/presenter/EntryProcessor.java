@@ -1,6 +1,8 @@
 package com.creative.raj.satsangdiary.presenter;
 
-import android.content.Context;
-
 public interface EntryProcessor {
+
+    int getAreaId();
+    String getAreaName();
+    String getSelectedAreaText();
 }
