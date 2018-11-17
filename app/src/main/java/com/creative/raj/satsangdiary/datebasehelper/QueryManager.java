@@ -40,7 +40,8 @@ public class QueryManager {
                 "       date_time" +
                 "  FROM area" +
                 "       INNER JOIN" +
-                "       area_center_relation ON area_center_relation.area_id = area.area_id" +
+                "       area_center_" +
+                "relation ON area_center_relation.area_id = area.area_id" +
                 "       INNER JOIN" +
                 "       center ON center.center_id = area_center_relation.center_id" +
                 "       INNER JOIN" +

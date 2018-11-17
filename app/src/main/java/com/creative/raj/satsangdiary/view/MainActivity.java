@@ -22,6 +22,7 @@ import com.creative.raj.satsangdiary.model.EntryProcessorImpl;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
 import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.creative.raj.satsangdiary.presenter.FragmentProcessor;
+import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
 import com.creative.raj.satsangdiary.utils.ActivityUtils;
 import com.creative.raj.satsangdiary.utils.FragmentConstants;
 import com.github.clans.fab.FloatingActionMenu;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         actvArea.setOnItemClickListener((parent, view, position, id) -> {
             entryProcessor.setSelectedAreaPosition(position);
         });
-        dialog.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
+        dialog.findViewById(R.id.btn_dialog_okay).setOnClickListener((view) -> {
             entryProcessor.addEntry();
         });
         dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view) -> {
@@ -160,5 +161,11 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     @Override
     public String getSelectedAreaText() {
         return actvArea.getText().toString();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DiaryDatabase.destroyInstance();
     }
 }
