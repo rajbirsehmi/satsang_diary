@@ -3,6 +3,7 @@ package com.creative.raj.satsangdiary.roomdatabase.entities;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "center")

@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         actvArea.setOnItemClickListener((parent, view, position, id) -> {
             entryProcessor.setSelectedAreaPosition(position);
         });
-        dialog.findViewById(R.id.btn_dialog_okay).setOnClickListener((view) -> {
+        dialog.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
             entryProcessor.addEntry();
         });
         dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view) -> {

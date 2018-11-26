@@ -3,7 +3,6 @@ package com.creative.raj.satsangdiary.roomdatabase.entities;
 import androidx.room.Embedded;
 
 public class ShabadDoneInCenter {
-
     @Embedded
     private CentralRelation centralRelation;
 

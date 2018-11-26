@@ -17,11 +17,11 @@ public interface ShabadCenterRelationDao {
             "INNER JOIN center " +
             "ON center.center_id = area_center_relation.center_id " +
             "INNER JOIN central_relation " +
-            "ON central_relation.center_id = center.center_id " +
+            "ON central_relation.central_relation_center_id = center.center_id " +
             "INNER JOIN shabad " +
-            "ON shabad.shabad_id = central_relation.shabad_id " +
+            "ON shabad.shabad_id = central_relation.central_relation_shabad_id " +
             "INNER JOIN remarks " +
-            "ON remarks.remarks_id = central_relation.remarks_id " +
+            "ON remarks.remarks_id = central_relation.central_relation_remarks_id " +
             "WHERE center.center_id = :centerId")
     List<ShabadDoneInCenter> getShabadDoneInCenter(int centerId);
 
@@ -32,11 +32,11 @@ public interface ShabadCenterRelationDao {
             "INNER JOIN center " +
             "ON center.center_id = area_center_relation.center_id " +
             "INNER JOIN central_relation " +
-            "ON central_relation.center_id = center.center_id " +
+            "ON central_relation.central_relation_center_id = center.center_id " +
             "INNER JOIN shabad " +
-            "ON shabad.shabad_id = central_relation.shabad_id " +
+            "ON shabad.shabad_id = central_relation.central_relation_shabad_id " +
             "INNER JOIN remarks " +
-            "ON remarks.remarks_id = central_relation.remarks_id " +
+            "ON remarks.remarks_id = central_relation.central_relation_remarks_id " +
             "WHERE area.area_id = :currentAreaId")
     List<ShabadDoneInCenter> getShabadDoneInOtherCenter(int currentAreaId);
 

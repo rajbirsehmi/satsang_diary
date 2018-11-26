@@ -10,15 +10,15 @@ import androidx.room.PrimaryKey;
         foreignKeys = {
                 @ForeignKey(entity = Center.class,
                         parentColumns = "center_id",
-                        childColumns = "center_id",
+                        childColumns = "central_relation_center_id",
                         onDelete = ForeignKey.CASCADE),
                 @ForeignKey(entity = Shabad.class,
                         parentColumns = "shabad_id",
-                        childColumns = "shabad_id",
+                        childColumns = "central_relation_shabad_id",
                         onDelete = ForeignKey.CASCADE),
                 @ForeignKey(entity = Remarks.class,
                         parentColumns = "remarks_id",
-                        childColumns = "remarks_id",
+                        childColumns = "central_relation_remarks_id",
                         onDelete = ForeignKey.CASCADE)
         })
 public class CentralRelation {
@@ -28,15 +28,15 @@ public class CentralRelation {
     @NonNull
     private int relationId;
 
-    @ColumnInfo(name = "center_id")
+    @ColumnInfo(name = "central_relation_center_id")
     @NonNull
     private int centerId;
 
-    @ColumnInfo(name = "shabad_id")
+    @ColumnInfo(name = "central_relation_shabad_id")
     @NonNull
     private int shabadId;
 
-    @ColumnInfo(name = "remarks_id")
+    @ColumnInfo(name = "central_relation_remarks_id")
     @NonNull
     private int remarksId;
 

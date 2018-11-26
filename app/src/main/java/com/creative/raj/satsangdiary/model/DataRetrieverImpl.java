@@ -1,6 +1,7 @@
 package com.creative.raj.satsangdiary.model;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
@@ -26,21 +27,55 @@ public class DataRetrieverImpl {
     public void getAllAreas() {
 //        Cursor cursorAllArea = QueryManager.getAllAreas(context);
 //        Parser.parseAllAreas(cursorAllArea);
-        RoomQueryManager.getAllAreas(DiaryDatabase.getInstance(context));
-        dataRetriever.setAreaAdapter(new AutoCompleteAllAreaAdapter(context, R.layout.template_autocomplete_list_item, AreaList.getInstance()));
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                RoomQueryManager.getAllAreas(DiaryDatabase.getInstance(context));
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                dataRetriever.setAreaAdapter(new AutoCompleteAllAreaAdapter(context, R.layout.template_autocomplete_list_item, AreaList.getInstance()));
+            }
+        }.execute();
     }
 
     public void getAllAssociatedCenters(int areaId) {
 //        Cursor cursorCenters = QueryManager.getCenters(context, areaId);
 //        Parser.parseAssociatedCenters(cursorCenters);
-        RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(context), areaId);
-        dataRetriever.setCenterAdapter(new AutoCompleteAssociatedCenterAdapter(context, R.layout.template_autocomplete_list_item, CenterList.getInstance()));
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(context), areaId);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                dataRetriever.setCenterAdapter(new AutoCompleteAssociatedCenterAdapter(context, R.layout.template_autocomplete_list_item, CenterList.getInstance()));
+            }
+        }.execute();
     }
 
     public void getAllShabads() {
 //        Cursor cursorAllShabads = QueryManager.getAllShabads(context);
 //        List<Shabad> listShabad = Parser.parseAllShabads(cursorAllShabads);
-        RoomQueryManager.getAllShabads(DiaryDatabase.getInstance(context));
-        dataRetriever.setShabadAdapter(new AutoCompleteShabadAdapter(context, R.layout.template_autocomplete_list_item, ShabadList.getInstance()));
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                RoomQueryManager.getAllShabads(DiaryDatabase.getInstance(context));
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                dataRetriever.setShabadAdapter(new AutoCompleteShabadAdapter(context, R.layout.template_autocomplete_list_item, ShabadList.getInstance()));
+            }
+        }.execute();
     }
 }

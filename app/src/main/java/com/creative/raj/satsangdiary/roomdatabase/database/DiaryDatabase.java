@@ -23,8 +23,7 @@ import androidx.room.RoomDatabase;
         Center.class,
         CentralRelation.class,
         Remarks.class,
-        Shabad.class,
-        ShabadDoneInCenter.class}, version = 1)
+        Shabad.class}, version = 1)
 public abstract class DiaryDatabase extends RoomDatabase {
 
     private static DiaryDatabase instance;
