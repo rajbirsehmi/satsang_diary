@@ -6,7 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "shabad")
+@Entity(tableName = "shabad",
+        indices = {@Index(value = "shabad_text", unique = true)})
 public class Shabad {
 
     @PrimaryKey(autoGenerate = true)

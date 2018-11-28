@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
@@ -17,6 +18,8 @@ import com.creative.raj.satsangdiary.fragments.OtherAreaFragment;
 import com.creative.raj.satsangdiary.fragments.SelectedAreaFragment;
 import com.creative.raj.satsangdiary.listener.FragmentChangeListener;
 import com.creative.raj.satsangdiary.lists.AreaList;
+import com.creative.raj.satsangdiary.lists.CenterList;
+import com.creative.raj.satsangdiary.lists.ShabadList;
 import com.creative.raj.satsangdiary.model.DataRetrieverImpl;
 import com.creative.raj.satsangdiary.model.EntryProcessorImpl;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     private DataRetrieverImpl dataRetriever;
     private AutoCompleteTextView actvArea, actvCenter, actvShabad;
     private EntryProcessorImpl entryProcessor;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         getSupportActionBar().setElevation(0.0f);
 
         fabMenu = findViewById(R.id.fab_menu);
+
+        DiaryDatabase.createInstance(getApplicationContext());
 
         navigationView = findViewById(R.id.navigation_bar);
         navigationView.setOnNavigationItemSelectedListener(new FragmentChangeListener(this));
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     }
 
     private void raiseDialog() {
-        Dialog dialog = new Dialog(this);
+        dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_dialog_add_new_entry);
         dialog.setCancelable(false);
         actvArea = dialog.findViewById(R.id.actv_area_name);
@@ -73,6 +79,12 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         dataRetriever.getAllShabads();
         actvArea.setOnItemClickListener((parent, view, position, id) -> {
             entryProcessor.setSelectedAreaPosition(position);
+        });
+        actvCenter.setOnItemClickListener((parent, view, position, id) -> {
+            entryProcessor.setSelectedCenterPosition(position);
+        });
+        actvShabad.setOnItemClickListener((parent, view, position, id) -> {
+            entryProcessor.setSelectedShabadPosition(position);
         });
         dialog.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
             entryProcessor.addEntry();
@@ -161,6 +173,49 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     @Override
     public String getSelectedAreaText() {
         return actvArea.getText().toString();
+    }
+
+    @Override
+    public int getCenterId() {
+        return CenterList.getCenterItemFromList(entryProcessor.getSelectedCenterPosition()).getId();
+    }
+
+    @Override
+    public String getSelectedCenterText() {
+        return actvCenter.getText().toString();
+    }
+
+    @Override
+    public int getShabadId() {
+        return ShabadList.getShabadItemFromList(entryProcessor.getSelectedShabadPosition()).getId();
+    }
+
+    @Override
+    public String getSelectedShabadText() {
+        return actvShabad.getText().toString();
+    }
+
+    @Override
+    public void notifyAreaNameMissing(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifyCenterNameMissing(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifyShabadTextMissing(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dataSaved(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     @Override

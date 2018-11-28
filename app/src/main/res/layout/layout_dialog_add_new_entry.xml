@@ -12,7 +12,7 @@
         android:gravity="center"
         android:text="@string/label_dialog_header_add_new_entry"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/dialog_header" />l
+        android:textSize="@dimen/dialog_header" />
 
     <TextView
         android:layout_width="match_parent"
@@ -25,6 +25,7 @@
         android:id="@+id/actv_area_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:completionThreshold="1"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_actv" />
 
@@ -39,6 +40,7 @@
         android:id="@+id/actv_center_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:completionThreshold="1"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_actv" />
 
@@ -53,6 +55,7 @@
         android:id="@+id/actv_shabad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:completionThreshold="1"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_actv" />
 
@@ -73,21 +76,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_first_sewa"/>
+            android:text="@string/label_first_sewa" />
 
         <RadioButton
             android:id="@+id/rb_second_sewa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/label_second_sewa"/>
+            android:text="@string/label_second_sewa" />
 
         <RadioButton
             android:id="@+id/rb_special_sewa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:text="@string/label_special_sewa"/>
+            android:text="@string/label_special_sewa" />
 
         <RadioButton
             android:id="@+id/rb_none"
@@ -95,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:checked="true"
-            android:text="@string/label_none"/>
+            android:text="@string/label_none" />
     </RadioGroup>
 
     <Button

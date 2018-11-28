@@ -38,7 +38,7 @@ public class AutoCompleteAllAreaAdapter extends ArrayAdapter<Area> {
         convertView = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
         TextView textView = convertView.findViewById(R.id.tv_list_item);
         textView.setText(list.get(position).getName());
-        textView.setTag(list.get(position).getId());
+//        textView.setTag(list.get(position).getId());
         return convertView;
     }
 }

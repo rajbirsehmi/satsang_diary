@@ -25,12 +25,10 @@ public class DataRetrieverImpl {
     }
 
     public void getAllAreas() {
-//        Cursor cursorAllArea = QueryManager.getAllAreas(context);
-//        Parser.parseAllAreas(cursorAllArea);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                RoomQueryManager.getAllAreas(DiaryDatabase.getInstance(context));
+                RoomQueryManager.getAllAreas(DiaryDatabase.getInstance());
                 return null;
             }
 
@@ -43,12 +41,10 @@ public class DataRetrieverImpl {
     }
 
     public void getAllAssociatedCenters(int areaId) {
-//        Cursor cursorCenters = QueryManager.getCenters(context, areaId);
-//        Parser.parseAssociatedCenters(cursorCenters);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(context), areaId);
+                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaId);
                 return null;
             }
 
@@ -61,13 +57,11 @@ public class DataRetrieverImpl {
     }
 
     public void getAllShabads() {
-//        Cursor cursorAllShabads = QueryManager.getAllShabads(context);
-//        List<Shabad> listShabad = Parser.parseAllShabads(cursorAllShabads);
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                RoomQueryManager.getAllShabads(DiaryDatabase.getInstance(context));
+                RoomQueryManager.getAllShabads(DiaryDatabase.getInstance());
                 return null;
             }
 

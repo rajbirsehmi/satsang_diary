@@ -6,7 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "area")
+@Entity(tableName = "area",
+indices = {@Index(value = "area_name", unique = true)})
 public class Area {
 
     @PrimaryKey(autoGenerate = true)

@@ -6,7 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "center")
+@Entity(tableName = "center",
+        indices = {@Index(value = "center_name", unique = true)})
 public class Center {
 
     @PrimaryKey(autoGenerate = true)

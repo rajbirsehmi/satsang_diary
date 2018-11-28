@@ -12,7 +12,6 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.Center;
 import com.creative.raj.satsangdiary.roomdatabase.entities.CentralRelation;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Remarks;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
-import com.creative.raj.satsangdiary.roomdatabase.entities.ShabadDoneInCenter;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -28,10 +27,13 @@ public abstract class DiaryDatabase extends RoomDatabase {
 
     private static DiaryDatabase instance;
 
-    public static DiaryDatabase getInstance(Context context) {
+    public static void createInstance(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), DiaryDatabase.class, "diary_database").build();
+            instance = Room.databaseBuilder(context, DiaryDatabase.class, "diary_database").build();
         }
+    }
+
+    public static DiaryDatabase getInstance() {
         return instance;
     }
 

@@ -32,4 +32,9 @@ public interface AreaDao {
             "FROM area " +
             "WHERE area_id != :currentAreaId")
     List<Area> getOtherAreas(int currentAreaId);
+
+    @Query("SELECT area_id, area_name " +
+            "FROM area " +
+            "WHERE area_name = :areaName")
+    Area getSelectedArea(String areaName);
 }

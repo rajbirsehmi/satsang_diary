@@ -38,7 +38,7 @@ public class AutoCompleteShabadAdapter extends ArrayAdapter<Shabad> {
         convertView = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
         TextView textView = convertView.findViewById(R.id.tv_list_item);
         textView.setText(list.get(position).getText());
-        textView.setTag(list.get(position).getId());
+//        textView.setTag(list.get(position).getId());
         return convertView;
     }
 }

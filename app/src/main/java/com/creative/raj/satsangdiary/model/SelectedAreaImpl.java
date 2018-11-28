@@ -41,7 +41,7 @@ public class SelectedAreaImpl {
         }
         DataHolder dataHolder;
 
-        RoomQueryManager.getCentersOfSelectedArea(DiaryDatabase.getInstance(context), currentSelectedAreaId);
+        RoomQueryManager.getCentersOfSelectedArea(DiaryDatabase.getInstance(), currentSelectedAreaId);
         for (Center item : CenterList.getInstance()) {
             dataHolder = new DataHolder();
             dataHolder.setCenterId(item.getId());
