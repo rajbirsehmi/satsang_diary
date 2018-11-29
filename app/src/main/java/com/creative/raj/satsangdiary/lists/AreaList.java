@@ -38,4 +38,8 @@ public class AreaList {
     public static int getListLength() {
         return listArea.size();
     }
+
+    public static void removeAllAreas() {
+        listArea.clear();
+    }
 }

@@ -2,6 +2,7 @@ package com.creative.raj.satsangdiary.roomdatabase.database;
 
 import android.content.Context;
 
+import com.creative.raj.satsangdiary.roomdatabase.dao.AreaCenterDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.AreaDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.CenterDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.ShabadCenterRelationDao;
@@ -42,6 +43,8 @@ public abstract class DiaryDatabase extends RoomDatabase {
     }
 
     public abstract AreaDao areaDao();
+
+    public abstract AreaCenterDao areaCenterDao();
 
     public abstract CenterDao centerDao();
 

@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.dataholders.populators.Area;
+import com.creative.raj.satsangdiary.filters.AutoCompleteAreaFilter;
 
 import java.util.List;
 
@@ -17,15 +19,30 @@ import androidx.annotation.Nullable;
 
 public class AutoCompleteAllAreaAdapter extends ArrayAdapter<Area> {
 
-    private Context context;
     private int layoutResource;
-    private List<Area> list;
+    private AutoCompleteAreaFilter areaFilter;
 
     public AutoCompleteAllAreaAdapter(@NonNull Context context, int resource, @NonNull List<Area> objects) {
         super(context, resource, objects);
-        this.context = context;
         this.layoutResource = resource;
-        this.list = objects;
+        areaFilter = new AutoCompleteAreaFilter();
+    }
+
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        return areaFilter;
+    }
+
+    @Override
+    public int getCount() {
+        return areaFilter.getFilteredList().size();
+    }
+
+    @Nullable
+    @Override
+    public Area getItem(int position) {
+        return areaFilter.getFilteredList().get(position);
     }
 
     public AutoCompleteAllAreaAdapter getAdapter() {
@@ -37,8 +54,8 @@ public class AutoCompleteAllAreaAdapter extends ArrayAdapter<Area> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
         TextView textView = convertView.findViewById(R.id.tv_list_item);
-        textView.setText(list.get(position).getName());
-//        textView.setTag(list.get(position).getId());
+        textView.setText(getItem(position).getName());
+        textView.setTag(getItem(position).getId());
         return convertView;
     }
 }

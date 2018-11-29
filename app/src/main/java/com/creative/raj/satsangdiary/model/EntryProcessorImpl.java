@@ -6,12 +6,12 @@ import android.os.AsyncTask;
 import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
+import com.creative.raj.satsangdiary.roomdatabase.entities.AreaCenterRelation;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Center;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
 
 public class EntryProcessorImpl {
 
-    private Context context;
     private EntryProcessor entryProcessor;
 
     private int selectedAreaPosition;
@@ -19,7 +19,6 @@ public class EntryProcessorImpl {
     private int selectedShabadPosition;
 
     public EntryProcessorImpl(Context context, EntryProcessor entryProcessor) {
-        this.context = context;
         this.entryProcessor = entryProcessor;
     }
 
@@ -31,6 +30,12 @@ public class EntryProcessorImpl {
                 int centerId = 0;
                 int shabadId = 0;
                 int remarksId = 0;
+
+                int areCenterRelationId = 0;
+
+                boolean flagIsAreaNew = false;
+                boolean flagIsCenterNew = false;
+
                 String selectedAreaName = entryProcessor.getSelectedAreaText();
                 String selectedCenterName = entryProcessor.getSelectedCenterText();
                 String selectedShabadText = entryProcessor.getSelectedShabadText();
@@ -49,16 +54,20 @@ public class EntryProcessorImpl {
 
                 if (areaIfExists == null) {
                     areaId = (int) addNewArea(selectedAreaName);
+                    flagIsAreaNew = true;
                 } else {
-                    areaId = entryProcessor.getAreaId();
+//                    areaId = entryProcessor.getAreaId();
+                    areaId = areaIfExists.getAreaId();
                 }
 
                 Center centerIfExists = DiaryDatabase.getInstance().centerDao().getSelectedCenter(selectedCenterName);
 
                 if (centerIfExists == null) {
                     centerId = (int) addNewCenter(selectedCenterName);
+                    flagIsCenterNew = true;
                 } else {
-                    centerId = entryProcessor.getCenterId();
+//                    centerId = entryProcessor.getCenterId();
+                    centerId = centerIfExists.getCenterId();
                 }
 
                 Shabad shabadIfExists = DiaryDatabase.getInstance().shabadDao().getShabadText(selectedShabadText);
@@ -66,7 +75,12 @@ public class EntryProcessorImpl {
                 if (shabadIfExists == null) {
                     shabadId = (int) addNewShabad(selectedShabadText);
                 } else {
-                    shabadId = entryProcessor.getShabadId();
+//                    shabadId = entryProcessor.getShabadId();
+                    shabadId = shabadIfExists.getShabadId();
+                }
+
+                if (flagIsAreaNew) {
+                    addNewAreaCenterRelation(areaId, centerId);
                 }
 
                 return 0;
@@ -103,6 +117,13 @@ public class EntryProcessorImpl {
         Center center = new Center();
         center.setCenterName(centerName);
         return DiaryDatabase.getInstance().centerDao().insertNewCenter(center);
+    }
+
+    private long addNewAreaCenterRelation(int areaId, int centerId) {
+        AreaCenterRelation relation = new AreaCenterRelation();
+        relation.setAreaId(areaId);
+        relation.setCenterId(centerId);
+        return DiaryDatabase.getInstance().areaCenterDao().addNewAreaCenterRelation(relation);
     }
 
     private long addNewShabad(String selectedShabadText) {

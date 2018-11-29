@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.dataholders.populators.Shabad;
+import com.creative.raj.satsangdiary.filters.AutoCompleteShabadFilter;
+import com.creative.raj.satsangdiary.lists.ShabadList;
 
 import java.util.List;
 
@@ -17,15 +20,13 @@ import androidx.annotation.Nullable;
 
 public class AutoCompleteShabadAdapter extends ArrayAdapter<Shabad> {
 
-    private Context context;
     private int layoutResource;
-    private List<Shabad> list;
+    private AutoCompleteShabadFilter shabadFilter;
 
     public AutoCompleteShabadAdapter(@NonNull Context context, int resource, @NonNull List<Shabad> objects) {
         super(context, resource, objects);
-        this.context = context;
         this.layoutResource = resource;
-        this.list = objects;
+        shabadFilter = new AutoCompleteShabadFilter();
     }
 
     public AutoCompleteShabadAdapter getAdapter() {
@@ -34,11 +35,28 @@ public class AutoCompleteShabadAdapter extends ArrayAdapter<Shabad> {
 
     @NonNull
     @Override
+    public Filter getFilter() {
+        return shabadFilter;
+    }
+
+    @Override
+    public int getCount() {
+        return shabadFilter.getFilteredList().size();
+    }
+
+    @Nullable
+    @Override
+    public Shabad getItem(int position) {
+        return shabadFilter.getFilteredList().get(position);
+    }
+
+    @NonNull
+    @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
         TextView textView = convertView.findViewById(R.id.tv_list_item);
-        textView.setText(list.get(position).getText());
-//        textView.setTag(list.get(position).getId());
+        textView.setText(getItem(position).getText());
+        textView.setTag(getItem(position).getId());
         return convertView;
     }
 }

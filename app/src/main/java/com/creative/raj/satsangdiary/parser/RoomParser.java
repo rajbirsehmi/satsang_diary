@@ -12,8 +12,10 @@ import java.util.List;
 public class RoomParser {
     public static void parseAllAreaList(List<Area> allAreas) {
         AreaList.createInstance();
+        if (AreaList.getListLength() != 0)
+            AreaList.removeAllAreas();
         com.creative.raj.satsangdiary.dataholders.populators.Area area;
-        for (Area areaFromList: allAreas) {
+        for (Area areaFromList : allAreas) {
             area = new com.creative.raj.satsangdiary.dataholders.populators.Area();
             area.setId(areaFromList.getAreaId());
             area.setName(areaFromList.getAreaName());
@@ -23,6 +25,8 @@ public class RoomParser {
 
     public static void parseAllAssociatedCenters(List<Center> centersByArea) {
         CenterList.createInstance();
+        if (CenterList.getListLength() != 0)
+            CenterList.removeAllCenters();
         com.creative.raj.satsangdiary.dataholders.populators.Center center;
         for (Center centerFromList : centersByArea) {
             center = new com.creative.raj.satsangdiary.dataholders.populators.Center();
@@ -34,8 +38,10 @@ public class RoomParser {
 
     public static void parseAllShabad(List<Shabad> allShabad) {
         ShabadList.createInstance();
+        if (ShabadList.getListLength() != 0)
+            ShabadList.removeAllShabad();
         com.creative.raj.satsangdiary.dataholders.populators.Shabad shabad;
-        for (Shabad shabadFromList: allShabad) {
+        for (Shabad shabadFromList : allShabad) {
             shabad = new com.creative.raj.satsangdiary.dataholders.populators.Shabad();
             shabad.setId(shabadFromList.getShabadId());
             shabad.setText(shabadFromList.getShabadText());

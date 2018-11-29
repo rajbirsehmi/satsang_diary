@@ -39,4 +39,8 @@ public class CenterList {
     public static void removeAllCenters() {
         listCenter.clear();
     }
+
+    public static int getListLength() {
+        return listCenter.size();
+    }
 }

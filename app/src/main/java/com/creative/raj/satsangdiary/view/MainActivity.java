@@ -3,8 +3,11 @@ package com.creative.raj.satsangdiary.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -13,6 +16,7 @@ import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAssociatedCenterAdapter;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteShabadAdapter;
+import com.creative.raj.satsangdiary.dataholders.populators.Area;
 import com.creative.raj.satsangdiary.fragments.AllShabadFragment;
 import com.creative.raj.satsangdiary.fragments.OtherAreaFragment;
 import com.creative.raj.satsangdiary.fragments.SelectedAreaFragment;
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         dataRetriever.getAllShabads();
         actvArea.setOnItemClickListener((parent, view, position, id) -> {
             entryProcessor.setSelectedAreaPosition(position);
+            dataRetriever.getAllAssociatedCenters(entryProcessor.getSelectedAreaPosition());
         });
         actvCenter.setOnItemClickListener((parent, view, position, id) -> {
             entryProcessor.setSelectedCenterPosition(position);

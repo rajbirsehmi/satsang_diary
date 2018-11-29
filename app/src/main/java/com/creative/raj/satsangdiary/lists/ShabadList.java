@@ -37,4 +37,8 @@ public class ShabadList {
     public static void removeAllShabad() {
         list.clear();
     }
+
+    public static int getListLength() {
+        return list.size();
+    }
 }

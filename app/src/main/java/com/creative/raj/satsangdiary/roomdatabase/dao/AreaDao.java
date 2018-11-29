@@ -18,6 +18,11 @@ public interface AreaDao {
             "WHERE area_id = :areaId")
     Area getSelectedArea(int areaId);
 
+    @Query("SELECT area_id, area_name " +
+            "FROM area " +
+            "WHERE area_name = :areaName")
+    Area getSelectedArea(String areaName);
+
     @Insert(onConflict = OnConflictStrategy.FAIL)
     long insertNewArea(Area area);
 
@@ -32,9 +37,4 @@ public interface AreaDao {
             "FROM area " +
             "WHERE area_id != :currentAreaId")
     List<Area> getOtherAreas(int currentAreaId);
-
-    @Query("SELECT area_id, area_name " +
-            "FROM area " +
-            "WHERE area_name = :areaName")
-    Area getSelectedArea(String areaName);
 }
