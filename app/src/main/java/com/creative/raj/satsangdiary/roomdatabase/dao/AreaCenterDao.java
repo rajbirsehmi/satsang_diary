@@ -22,4 +22,9 @@ public interface AreaCenterDao {
 
     @Insert
     long addNewAreaCenterRelation(AreaCenterRelation areaCenterRelation);
+
+    @Query("SELECT area_id, center_id " +
+            "FROM area_center_relation " +
+            "WHERE area_id = :areaId and center_id = :centerId")
+    AreaCenterRelation lookIfSuchRelationExists(int areaId, int centerId);
 }

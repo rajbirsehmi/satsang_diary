@@ -41,5 +41,5 @@ public interface CenterDao {
     long insertNewCenter(Center center);
 
     @Update(onConflict = OnConflictStrategy.FAIL)
-    void updateExistingcenter(Center center);
+    void updateExistingCenter(Center center);
 }

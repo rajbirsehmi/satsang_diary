@@ -2,6 +2,7 @@ package com.creative.raj.satsangdiary.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Debug;
 
 import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
@@ -26,6 +27,8 @@ public class EntryProcessorImpl {
         new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(Void... voids) {
+                if (Debug.isDebuggerConnected())
+                    Debug.waitForDebugger();
                 int areaId = 0;
                 int centerId = 0;
                 int shabadId = 0;
@@ -35,6 +38,7 @@ public class EntryProcessorImpl {
 
                 boolean flagIsAreaNew = false;
                 boolean flagIsCenterNew = false;
+                boolean flagThisIsNewRelation = false;
 
                 String selectedAreaName = entryProcessor.getSelectedAreaText();
                 String selectedCenterName = entryProcessor.getSelectedCenterText();
@@ -70,6 +74,17 @@ public class EntryProcessorImpl {
                     centerId = centerIfExists.getCenterId();
                 }
 
+                if (suchRelationAlreadyExists(areaId, centerId)) {
+                    flagThisIsNewRelation = true;
+                }
+                if (flagIsAreaNew) {
+                    addNewAreaCenterRelation(areaId, centerId);
+                }
+
+
+
+
+
                 Shabad shabadIfExists = DiaryDatabase.getInstance().shabadDao().getShabadText(selectedShabadText);
 
                 if (shabadIfExists == null) {
@@ -79,9 +94,7 @@ public class EntryProcessorImpl {
                     shabadId = shabadIfExists.getShabadId();
                 }
 
-                if (flagIsAreaNew) {
-                    addNewAreaCenterRelation(areaId, centerId);
-                }
+
 
                 return 0;
             }
@@ -105,6 +118,11 @@ public class EntryProcessorImpl {
                 }
             }
         }.execute();
+    }
+
+    private boolean suchRelationAlreadyExists(int areaId, int centerId) {
+        AreaCenterRelation relationExists = DiaryDatabase.getInstance().areaCenterDao().lookIfSuchRelationExists(areaId, centerId);
+        return relationExists == null;
     }
 
     private long addNewArea(String selectedAreaName) {

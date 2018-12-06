@@ -2,6 +2,7 @@ package com.creative.raj.satsangdiary.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Debug;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
@@ -25,16 +26,16 @@ public class DataRetrieverImpl {
     }
 
     public void getAllAreas() {
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, Boolean>() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            protected Boolean doInBackground(Void... voids) {
                 RoomQueryManager.getAllAreas(DiaryDatabase.getInstance());
-                return null;
+                return true;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
+            protected void onPostExecute(Boolean flag) {
+                super.onPostExecute(flag);
                 dataRetriever.setAreaAdapter(new AutoCompleteAllAreaAdapter(context, R.layout.template_autocomplete_list_item, AreaList.getInstance()));
             }
         }.execute();
