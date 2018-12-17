@@ -74,16 +74,12 @@ public class EntryProcessorImpl {
                     centerId = centerIfExists.getCenterId();
                 }
 
-                if (suchRelationAlreadyExists(areaId, centerId)) {
+                if (suchRelationNotExists(areaId, centerId)) {
                     flagThisIsNewRelation = true;
                 }
                 if (flagIsAreaNew) {
                     addNewAreaCenterRelation(areaId, centerId);
                 }
-
-
-
-
 
                 Shabad shabadIfExists = DiaryDatabase.getInstance().shabadDao().getShabadText(selectedShabadText);
 
@@ -120,7 +116,7 @@ public class EntryProcessorImpl {
         }.execute();
     }
 
-    private boolean suchRelationAlreadyExists(int areaId, int centerId) {
+    private boolean suchRelationNotExists(int areaId, int centerId) {
         AreaCenterRelation relationExists = DiaryDatabase.getInstance().areaCenterDao().lookIfSuchRelationExists(areaId, centerId);
         return relationExists == null;
     }

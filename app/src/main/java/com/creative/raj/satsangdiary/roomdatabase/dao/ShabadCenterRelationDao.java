@@ -13,9 +13,9 @@ public interface ShabadCenterRelationDao {
     @Query("SELECT central_relation.relation_id, shabad_text, remarks_text, date_time " +
             "FROM area " +
             "INNER JOIN area_center_relation " +
-            "ON area_center_relation.area_id = area.area_id " +
+            "ON area_center_relation.area_center_relation_area_id = area.area_id " +
             "INNER JOIN center " +
-            "ON center.center_id = area_center_relation.center_id " +
+            "ON center.center_id = area_center_relation.area_center_relation_center_id " +
             "INNER JOIN central_relation " +
             "ON central_relation.central_relation_center_id = center.center_id " +
             "INNER JOIN shabad " +
@@ -28,9 +28,9 @@ public interface ShabadCenterRelationDao {
     @Query("SELECT center.center_id, center.center_name, central_relation.relation_id, shabad_text, remarks.remarks_text, central_relation.date_time " +
             " FROM area " +
             "INNER JOIN area_center_relation " +
-            "ON area_center_relation.area_id = area.area_id " +
+            "ON area_center_relation.area_center_relation_area_id = area.area_id " +
             "INNER JOIN center " +
-            "ON center.center_id = area_center_relation.center_id " +
+            "ON center.center_id = area_center_relation.area_center_relation_center_id " +
             "INNER JOIN central_relation " +
             "ON central_relation.central_relation_center_id = center.center_id " +
             "INNER JOIN shabad " +

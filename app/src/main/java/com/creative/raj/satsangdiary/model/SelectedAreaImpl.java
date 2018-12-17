@@ -41,32 +41,13 @@ public class SelectedAreaImpl {
         }
         DataHolder dataHolder;
 
-        RoomQueryManager.getCentersOfSelectedArea(DiaryDatabase.getInstance(), currentSelectedAreaId);
+        RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), currentSelectedAreaId);
         for (Center item : CenterList.getInstance()) {
             dataHolder = new DataHolder();
             dataHolder.setCenterId(item.getId());
             dataHolder.setCenterName(item.getName());
+            arrDataHolder.add(dataHolder);
         }
-
-
-        Cursor centerIds = QueryManager.getCenterIds(context, currentSelectedAreaId);
-        String[] arrCenterIds = Parser.parseCenterIds(centerIds);
-
-        for (String centerId : arrCenterIds) {
-//            DataHolder dataHolder = new DataHolder();
-//            int _centerId = Integer.parseInt(centerId);
-//            Cursor cursorCenterName = QueryManager.getCenterName(context, _centerId);
-//            String centerName = Parser.parseCenterName(cursorCenterName, _centerId);
-//
-//            dataHolder.setCenterName(centerName);
-//            dataHolder.setCenterId(_centerId);
-
-//            Cursor cursorMoreDetail = QueryManager.getShabadDoneInCenter(context, _centerId);
-//            ArrayList<ExpandedData> arrExpandedData = Parser.parseShabadAndCenterData(cursorMoreDetail);
-//            dataHolder.setExpandedData(arrExpandedData);
-//            arrDataHolder.add(dataHolder);
-        }
-
         selectedArea.attachAdapterToList(new SelectedAreaAdapter(arrDataHolder));
     }
 }

@@ -32,7 +32,6 @@ public class RoomParser {
             center = new com.creative.raj.satsangdiary.dataholders.populators.Center();
             center.setName(centerFromList.getCenterName());
             center.setId(centerFromList.getCenterId());
-
             CenterList.addCenterItemToList(center);
         }
     }

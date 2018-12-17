@@ -12,12 +12,12 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(
                         entity = Area.class,
                         parentColumns = "area_id",
-                        childColumns = "area_id",
+                        childColumns = "area_center_relation_area_id",
                         onDelete = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = Center.class,
                         parentColumns = "center_id",
-                        childColumns = "center_id",
+                        childColumns = "area_center_relation_center_id",
                         onDelete = ForeignKey.CASCADE
                 )})
 public class AreaCenterRelation {
@@ -27,10 +27,10 @@ public class AreaCenterRelation {
     @NonNull
     private int relationId;
 
-    @ColumnInfo(name = "area_id")
+    @ColumnInfo(name = "area_center_relation_area_id")
     private int areaId;
 
-    @ColumnInfo(name = "center_id")
+    @ColumnInfo(name = "area_center_relation_center_id")
     private int centerId;
 
     @NonNull

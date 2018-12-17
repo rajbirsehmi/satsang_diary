@@ -23,8 +23,8 @@ public class RoomQueryManager {
         RoomParser.parseAllShabad(allShabad);
     }
 
-    public static void getCentersOfSelectedArea(DiaryDatabase database, int currentSelectedAreaId) {
-        List<Center> centersByArea = database.centerDao().getCentersByArea(currentSelectedAreaId);
-        RoomParser.parseAllAssociatedCenters(centersByArea);
-    }
+//    public static void getCentersOfSelectedArea(DiaryDatabase database, int currentSelectedAreaId) {
+//        List<Center> centersByArea = database.centerDao().getCentersByArea(currentSelectedAreaId);
+//        RoomParser.parseAllAssociatedCenters(centersByArea);
+//    }
 }

@@ -76,6 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:tag="1"
             android:text="@string/label_first_sewa" />
 
         <RadioButton
@@ -83,6 +84,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:tag="2"
             android:text="@string/label_second_sewa" />
 
         <RadioButton
@@ -90,6 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
+            android:tag="spl"
             android:text="@string/label_special_sewa" />
 
         <RadioButton
@@ -102,6 +105,7 @@
     </RadioGroup>
 
     <Button
+        android:id="@+id/btn_select_date_time"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
