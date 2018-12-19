@@ -23,4 +23,6 @@ public interface EntryProcessor {
     void notifyShabadTextMissing(String message);
 
     void dataSaved(String message);
+
+    void notifyCenterConflict(String message);
 }

@@ -34,7 +34,7 @@ public class EntryProcessorImpl {
                 int shabadId = 0;
                 int remarksId = 0;
 
-                int areCenterRelationId = 0;
+                long areaCenterRelationId = 0;
 
                 boolean flagIsAreaNew = false;
                 boolean flagIsCenterNew = false;
@@ -60,7 +60,6 @@ public class EntryProcessorImpl {
                     areaId = (int) addNewArea(selectedAreaName);
                     flagIsAreaNew = true;
                 } else {
-//                    areaId = entryProcessor.getAreaId();
                     areaId = areaIfExists.getAreaId();
                 }
 
@@ -70,15 +69,15 @@ public class EntryProcessorImpl {
                     centerId = (int) addNewCenter(selectedCenterName);
                     flagIsCenterNew = true;
                 } else {
-//                    centerId = entryProcessor.getCenterId();
                     centerId = centerIfExists.getCenterId();
                 }
 
-                if (suchRelationNotExists(areaId, centerId)) {
-                    flagThisIsNewRelation = true;
+                if (flagIsAreaNew && !flagIsCenterNew) {
+                    return -4;
                 }
-                if (flagIsAreaNew) {
-                    addNewAreaCenterRelation(areaId, centerId);
+
+                if (flagIsAreaNew && flagIsCenterNew) {
+                    areaCenterRelationId = addNewAreaCenterRelation(areaId, centerId);
                 }
 
                 Shabad shabadIfExists = DiaryDatabase.getInstance().shabadDao().getShabadText(selectedShabadText);
@@ -86,12 +85,8 @@ public class EntryProcessorImpl {
                 if (shabadIfExists == null) {
                     shabadId = (int) addNewShabad(selectedShabadText);
                 } else {
-//                    shabadId = entryProcessor.getShabadId();
                     shabadId = shabadIfExists.getShabadId();
                 }
-
-
-
                 return 0;
             }
 
@@ -110,6 +105,9 @@ public class EntryProcessorImpl {
                         break;
                     case -3:
                         entryProcessor.notifyShabadTextMissing("Shabad is Missing...");
+                        break;
+                    case -4:
+                        entryProcessor.notifyCenterConflict("Center You are trying to enter already exists to some other Area.");
                         break;
                 }
             }

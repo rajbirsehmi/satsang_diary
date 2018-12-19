@@ -224,6 +224,11 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     }
 
     @Override
+    public void notifyCenterConflict(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         DiaryDatabase.destroyInstance();

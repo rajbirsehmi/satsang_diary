@@ -29,6 +29,8 @@ public class DataRetrieverImpl {
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... voids) {
+                if(android.os.Debug.isDebuggerConnected())
+                    android.os.Debug.waitForDebugger();
                 RoomQueryManager.getAllAreas(DiaryDatabase.getInstance());
                 return true;
             }
@@ -45,6 +47,8 @@ public class DataRetrieverImpl {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
+                if(android.os.Debug.isDebuggerConnected())
+                    android.os.Debug.waitForDebugger();
                 RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaId);
                 return null;
             }
@@ -62,6 +66,8 @@ public class DataRetrieverImpl {
 
             @Override
             protected Void doInBackground(Void... voids) {
+                if(android.os.Debug.isDebuggerConnected())
+                    android.os.Debug.waitForDebugger();
                 RoomQueryManager.getAllShabads(DiaryDatabase.getInstance());
                 return null;
             }

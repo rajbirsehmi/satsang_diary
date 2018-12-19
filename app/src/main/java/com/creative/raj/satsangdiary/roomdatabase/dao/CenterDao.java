@@ -28,10 +28,10 @@ public interface CenterDao {
     Center getSelectedCenter(String centerName);
 
     @Query("SELECT center.center_id," +
-            "       center_name" +
+            "       center.center_name" +
             "  FROM area_center_relation" +
             "       INNER JOIN" +
-            "       center ON area_center_relation.area_center_relation_area_id = center.center_id" +
+            "       center ON area_center_relation.area_center_relation_center_id = center.center_id" +
             "       INNER JOIN" +
             "       area ON area_center_relation.area_center_relation_area_id = area.area_id" +
             " WHERE area.area_id = :areaId")
