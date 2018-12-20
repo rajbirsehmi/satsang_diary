@@ -67,6 +67,7 @@
         android:textSize="@dimen/text_size_subtext" />
 
     <RadioGroup
+        android:id="@+id/rg_sewa_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

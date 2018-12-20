@@ -14,10 +14,7 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
 public class EntryProcessorImpl {
 
     private EntryProcessor entryProcessor;
-
-    private int selectedAreaPosition;
-    private int selectedCenterPosition;
-    private int selectedShabadPosition;
+    private String sewaTypeTag;
 
     public EntryProcessorImpl(Context context, EntryProcessor entryProcessor) {
         this.entryProcessor = entryProcessor;
@@ -29,12 +26,12 @@ public class EntryProcessorImpl {
             protected Integer doInBackground(Void... voids) {
                 if (Debug.isDebuggerConnected())
                     Debug.waitForDebugger();
-                int areaId = 0;
-                int centerId = 0;
-                int shabadId = 0;
-                int remarksId = 0;
+                int areaId;
+                int centerId;
+                int shabadId;
+                int remarksId;
 
-                long areaCenterRelationId = 0;
+                long areaCenterRelationId;
 
                 boolean flagIsAreaNew = false;
                 boolean flagIsCenterNew = false;
@@ -72,14 +69,6 @@ public class EntryProcessorImpl {
                     centerId = centerIfExists.getCenterId();
                 }
 
-                if (flagIsAreaNew && !flagIsCenterNew) {
-                    return -4;
-                }
-
-                if (flagIsAreaNew && flagIsCenterNew) {
-                    areaCenterRelationId = addNewAreaCenterRelation(areaId, centerId);
-                }
-
                 Shabad shabadIfExists = DiaryDatabase.getInstance().shabadDao().getShabadText(selectedShabadText);
 
                 if (shabadIfExists == null) {
@@ -87,6 +76,15 @@ public class EntryProcessorImpl {
                 } else {
                     shabadId = shabadIfExists.getShabadId();
                 }
+
+                if ((flagIsAreaNew && flagIsCenterNew) || (!flagIsAreaNew && flagIsCenterNew)) {
+                    areaCenterRelationId = addNewAreaCenterRelation(areaId, centerId);
+                }
+
+                if (flagIsAreaNew && !flagIsCenterNew) {
+                    return -4;
+                }
+
                 return 0;
             }
 
@@ -144,27 +142,11 @@ public class EntryProcessorImpl {
         return DiaryDatabase.getInstance().shabadDao().insertNewShabad(shabad);
     }
 
-    public int getSelectedAreaPosition() {
-        return selectedAreaPosition;
-    }
-
-    public void setSelectedAreaPosition(int position) {
-        selectedAreaPosition = position;
-    }
-
-    public int getSelectedCenterPosition() {
-        return selectedCenterPosition;
-    }
-
-    public void setSelectedCenterPosition(int position) {
-        this.selectedCenterPosition = position;
-    }
-
-    public int getSelectedShabadPosition() {
-        return selectedShabadPosition;
-    }
-
-    public void setSelectedShabadPosition(int selectedShabadPosition) {
-        this.selectedShabadPosition = selectedShabadPosition;
+    public void setSewaTypeTag(Object sewaTypeTag) {
+        String tag = String.valueOf(sewaTypeTag);
+        switch (tag) {
+            case "spl":
+                sewaTypeTag = "3";
+        }
     }
 }

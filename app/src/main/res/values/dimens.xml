@@ -5,4 +5,5 @@
     <dimen name="dialog_header">20sp</dimen>
     <dimen name="text_size_actv">18sp</dimen>
     <dimen name="button_icon_padding">15dp</dimen>
+    <dimen name="icon_size_about_app">70dp</dimen>
 </resources>

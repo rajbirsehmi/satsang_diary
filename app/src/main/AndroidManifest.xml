@@ -9,20 +9,21 @@
         android:roundIcon="@drawable/icon_diary"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SettingsActivity"
-            android:label="@string/label_settings">
-            <intent-filter>
-                <action android:name="com.creative.raj.satsangdiary.settingsactivity"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/label_settings">
+            <intent-filter>
+                <action android:name="com.creative.raj.satsangdiary.settingsactivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.MainActivity"></activity>
     </application>
 
 </manifest>

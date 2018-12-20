@@ -3,27 +3,23 @@ package com.creative.raj.satsangdiary.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAssociatedCenterAdapter;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteShabadAdapter;
-import com.creative.raj.satsangdiary.dataholders.populators.Area;
 import com.creative.raj.satsangdiary.fragments.AllShabadFragment;
 import com.creative.raj.satsangdiary.fragments.OtherAreaFragment;
 import com.creative.raj.satsangdiary.fragments.SelectedAreaFragment;
 import com.creative.raj.satsangdiary.listener.FragmentChangeListener;
-import com.creative.raj.satsangdiary.lists.AreaList;
-import com.creative.raj.satsangdiary.lists.CenterList;
-import com.creative.raj.satsangdiary.lists.ShabadList;
 import com.creative.raj.satsangdiary.model.DataRetrieverImpl;
 import com.creative.raj.satsangdiary.model.EntryProcessorImpl;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
@@ -35,16 +31,16 @@ import com.creative.raj.satsangdiary.utils.FragmentConstants;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity implements FragmentProcessor, EntryProcessor, DataRetriever {
 
     private BottomNavigationView navigationView;
     private FloatingActionMenu fabMenu;
-    private DataRetrieverImpl dataRetriever;
     private AutoCompleteTextView actvArea, actvCenter, actvShabad;
+    private Dialog dialogAddEntry;
+    private RadioGroup rgSewaType;
+
+    private DataRetrieverImpl dataRetriever;
     private EntryProcessorImpl entryProcessor;
-    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         getSupportActionBar().setElevation(0.0f);
 
         fabMenu = findViewById(R.id.fab_menu);
-
-        DiaryDatabase.createInstance(getApplicationContext());
 
         navigationView = findViewById(R.id.navigation_bar);
         navigationView.setOnNavigationItemSelectedListener(new FragmentChangeListener(this));
@@ -65,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
             fabMenu.close(true);
             raiseDialog();
         });
-
         findViewById(R.id.fab_add_notification).setOnClickListener((v) -> {
             fabMenu.close(true);
         });
@@ -73,33 +66,30 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     }
 
     private void raiseDialog() {
-        dialog = new Dialog(this);
-        dialog.setContentView(R.layout.layout_dialog_add_new_entry);
-        dialog.setCancelable(false);
-        actvArea = dialog.findViewById(R.id.actv_area_name);
-        actvCenter = dialog.findViewById(R.id.actv_center_name);
-        actvShabad = dialog.findViewById(R.id.actv_shabad);
+        dialogAddEntry = new Dialog(this);
+        dialogAddEntry.setContentView(R.layout.layout_dialog_add_new_entry);
+        dialogAddEntry.setCancelable(false);
+        actvArea = dialogAddEntry.findViewById(R.id.actv_area_name);
+        actvCenter = dialogAddEntry.findViewById(R.id.actv_center_name);
+        actvShabad = dialogAddEntry.findViewById(R.id.actv_shabad);
+        rgSewaType = dialogAddEntry.findViewById(R.id.rg_sewa_type);
         dataRetriever.getAllAreas();
         dataRetriever.getAllShabads();
         actvArea.setOnItemClickListener((parent, view, position, id) -> {
-            entryProcessor.setSelectedAreaPosition(position);
-            dataRetriever.getAllAssociatedCenters(entryProcessor.getSelectedAreaPosition());
+            dataRetriever.getAllAssociatedCenters(actvArea.getText().toString());
         });
-        actvCenter.setOnItemClickListener((parent, view, position, id) -> {
-            entryProcessor.setSelectedCenterPosition(position);
+        rgSewaType.setOnCheckedChangeListener((group, checkedId) -> {
+            entryProcessor.setSewaTypeTag(dialogAddEntry.findViewById(checkedId).getTag());
         });
-        actvShabad.setOnItemClickListener((parent, view, position, id) -> {
-            entryProcessor.setSelectedShabadPosition(position);
-        });
-        dialog.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
+        dialogAddEntry.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
             entryProcessor.addEntry();
         });
-        dialog.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view) -> {
-            dialog.dismiss();
+        dialogAddEntry.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((view) -> {
+            dialogAddEntry.dismiss();
         });
-        dialog.create();
-        dialog.show();
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialogAddEntry.create();
+        dialogAddEntry.show();
+        dialogAddEntry.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     private void loadInitialFragment() {
@@ -119,6 +109,17 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         if (item.getItemId() == R.id.mi_settings) {
             ActivityUtils.startActivity(getBaseContext(), new Intent(ActivityUtils.ACTION_URL_SETTING_ACTIVITY));
         }
+        if (item.getItemId() == R.id.mi_about_app) {
+            Dialog dialogAboutApp = new Dialog(this);
+            dialogAboutApp.setCancelable(false);
+            dialogAboutApp.setContentView(R.layout.layout_about_app);
+            dialogAboutApp.findViewById(R.id.btn_dialog_dismiss).setOnClickListener((v) -> {
+                dialogAboutApp.dismiss();
+            });
+            dialogAboutApp.create();
+            dialogAboutApp.show();
+            dialogAboutApp.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -135,13 +136,6 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containter, new OtherAreaFragment()).commit();
         navigationView.getMenu().findItem(R.id.navigation_other_area).setChecked(true);
     }
-
-//    not to be implemented
-//    @Override
-//    public void setNotificationFragment() {
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containter, new NotificationFragment()).commit();
-//        navigationView.getMenu().findItem(R.id.navigation_notification).setChecked(true);
-//    }
 
     @Override
     public void setAllShabadFragment() {
@@ -166,33 +160,13 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     }
 
     @Override
-    public int getAreaId() {
-        return AreaList.getAreaItemFromList(entryProcessor.getSelectedAreaPosition()).getId();
-    }
-
-    @Override
-    public String getAreaName() {
-        return AreaList.getAreaItemFromList(entryProcessor.getSelectedAreaPosition()).getName();
-    }
-
-    @Override
     public String getSelectedAreaText() {
         return actvArea.getText().toString();
     }
 
     @Override
-    public int getCenterId() {
-        return CenterList.getCenterItemFromList(entryProcessor.getSelectedCenterPosition()).getId();
-    }
-
-    @Override
     public String getSelectedCenterText() {
         return actvCenter.getText().toString();
-    }
-
-    @Override
-    public int getShabadId() {
-        return ShabadList.getShabadItemFromList(entryProcessor.getSelectedShabadPosition()).getId();
     }
 
     @Override
@@ -202,24 +176,24 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
 
     @Override
     public void notifyAreaNameMissing(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        actvArea.setError(message);
     }
 
     @Override
     public void notifyCenterNameMissing(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        actvCenter.setError(message);
     }
 
     @Override
     public void notifyShabadTextMissing(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        actvShabad.setError(message);
     }
 
     @Override
     public void dataSaved(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        if (dialog.isShowing()) {
-            dialog.dismiss();
+        if (dialogAddEntry.isShowing()) {
+            dialogAddEntry.dismiss();
         }
     }
 

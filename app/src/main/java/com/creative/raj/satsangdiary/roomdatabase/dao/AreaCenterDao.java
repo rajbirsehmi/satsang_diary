@@ -20,6 +20,15 @@ public interface AreaCenterDao {
             "WHERE area.area_id = :areaId")
     List<Center> getCentersByArea(int areaId);
 
+    @Query("SELECT center.center_id, center.center_name " +
+            "FROM area_center_relation " +
+            "INNER JOIN center " +
+            "ON area_center_relation.area_center_relation_center_id = center.center_id " +
+            "INNER JOIN area " +
+            "ON area_center_relation.area_center_relation_area_id = area.area_id " +
+            "WHERE area.area_name = :areaName")
+    List<Center> getCentersByArea(String areaName);
+
     @Insert
     long addNewAreaCenterRelation(AreaCenterRelation areaCenterRelation);
 

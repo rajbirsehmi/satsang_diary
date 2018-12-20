@@ -25,4 +25,6 @@
     <string name="label_settings">Settings</string>
     <string name="label_backup_data">Back up all data</string>
     <string name="label_restore_data">Restore all data</string>
+    <string name="action_about_app">About App...</string>
+    <string name="version_code">Version : 2.0</string>
 </resources>

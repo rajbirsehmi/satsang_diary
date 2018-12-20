@@ -14,6 +14,7 @@ import com.creative.raj.satsangdiary.lists.ShabadList;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
 import com.creative.raj.satsangdiary.roomdatabase.database.RoomQueryManager;
+import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
 
 public class DataRetrieverImpl {
 
@@ -43,13 +44,13 @@ public class DataRetrieverImpl {
         }.execute();
     }
 
-    public void getAllAssociatedCenters(int areaId) {
+    public void getAllAssociatedCenters(String areaName) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 if(android.os.Debug.isDebuggerConnected())
                     android.os.Debug.waitForDebugger();
-                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaId);
+                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaName);
                 return null;
             }
 

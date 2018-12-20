@@ -2,9 +2,14 @@ package com.creative.raj.satsangdiary.roomdatabase.database;
 
 import android.content.Context;
 
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
 import com.creative.raj.satsangdiary.roomdatabase.dao.AreaCenterDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.AreaDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.CenterDao;
+import com.creative.raj.satsangdiary.roomdatabase.dao.RemarksDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.ShabadCenterRelationDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.ShabadDao;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
@@ -13,10 +18,6 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.Center;
 import com.creative.raj.satsangdiary.roomdatabase.entities.CentralRelation;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Remarks;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
-
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 @Database(entities = {Area.class,
         AreaCenterRelation.class,
@@ -51,4 +52,6 @@ public abstract class DiaryDatabase extends RoomDatabase {
     public abstract ShabadDao shabadDao();
 
     public abstract ShabadCenterRelationDao shabadCenterRelationDao();
+
+    public abstract RemarksDao remarksDao();
 }
