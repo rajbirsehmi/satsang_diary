@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.creative.raj.satsangdiary.R;
+import com.creative.raj.satsangdiary.dataholders.populators.Shabad;
 import com.creative.raj.satsangdiary.dataholders.shabad.DataHolder;
 import com.creative.raj.satsangdiary.viewholder.AllShabadViewHolder;
 
@@ -15,12 +16,10 @@ import java.util.List;
 
 public class AllShabadAdapter extends RecyclerView.Adapter<AllShabadViewHolder> {
 
-    private List<DataHolder> listShabad;
-    private Context context;
+    private List<Shabad> listShabad;
 
-    public AllShabadAdapter(List<DataHolder> listShabad, Context context) {
+    public AllShabadAdapter(List<Shabad> listShabad) {
         this.listShabad = listShabad;
-        this.context = context;
     }
 
     @NonNull
