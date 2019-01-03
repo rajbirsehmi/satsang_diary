@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import com.creative.raj.satsangdiary.roomdatabase.dao.AreaCenterDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.AreaDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.CenterDao;
+import com.creative.raj.satsangdiary.roomdatabase.dao.CentralRelationDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.RemarksDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.ShabadCenterRelationDao;
 import com.creative.raj.satsangdiary.roomdatabase.dao.ShabadDao;
@@ -54,4 +55,6 @@ public abstract class DiaryDatabase extends RoomDatabase {
     public abstract ShabadCenterRelationDao shabadCenterRelationDao();
 
     public abstract RemarksDao remarksDao();
+
+    public abstract CentralRelationDao centralRelationDao();
 }

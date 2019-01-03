@@ -17,4 +17,8 @@ public interface EntryProcessor {
     void dataSaved(String message);
 
     void notifyCenterConflict(String message);
+
+    void notifySewaTagMissing(String message);
+
+    void notifySewaDateTimeMissing(String message);
 }

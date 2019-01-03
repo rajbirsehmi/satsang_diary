@@ -1,7 +1,6 @@
 package com.creative.raj.satsangdiary.parser;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import com.creative.raj.satsangdiary.dataholders.populators.Area;
 import com.creative.raj.satsangdiary.dataholders.populators.Center;
@@ -137,7 +136,7 @@ public class Parser {
             area = new Area();
             area.setId(Integer.parseInt(cursorAllAreas.getString(cursorAllAreas.getColumnIndex("area_id"))));
             area.setName(cursorAllAreas.getString(cursorAllAreas.getColumnIndex("area_name")));
-            AreaList.addAreaItemToList(area);
+            AreaList.addAreaToList(area);
         }
         return AreaList.getInstance();
     }

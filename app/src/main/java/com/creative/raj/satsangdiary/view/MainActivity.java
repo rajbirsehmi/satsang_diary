@@ -1,15 +1,20 @@
 package com.creative.raj.satsangdiary.view;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.creative.raj.satsangdiary.R;
@@ -31,6 +36,10 @@ import com.creative.raj.satsangdiary.utils.FragmentConstants;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements FragmentProcessor, EntryProcessor, DataRetriever {
 
     private BottomNavigationView navigationView;
@@ -42,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
     private DataRetrieverImpl dataRetriever;
     private EntryProcessorImpl entryProcessor;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         loadInitialFragment();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void raiseDialog() {
         dialogAddEntry = new Dialog(this);
         dialogAddEntry.setContentView(R.layout.layout_dialog_add_new_entry);
@@ -81,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         rgSewaType.setOnCheckedChangeListener((group, checkedId) -> {
             entryProcessor.setSewaTypeTag(dialogAddEntry.findViewById(checkedId).getTag());
         });
+        dialogAddEntry.findViewById(R.id.btn_select_date_time).setOnClickListener((view) -> {
+            raiseDatePickerDialog();
+        });
         dialogAddEntry.findViewById(R.id.btn_dialog_save_entry).setOnClickListener((view) -> {
             entryProcessor.addEntry();
         });
@@ -90,6 +104,18 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         dialogAddEntry.create();
         dialogAddEntry.show();
         dialogAddEntry.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void raiseDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this);
+        datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, dayOfMonth);
+            entryProcessor.setSewaDateTime(String.valueOf(calendar.getTimeInMillis()));
+            ((Button)(dialogAddEntry.findViewById(R.id.btn_select_date_time))).setText(new SimpleDateFormat("EEEE, MMM dd, YYYY").format(new Date(Long.parseLong(entryProcessor.getSewaDateTime()))));
+        });
+        datePickerDialog.show();
     }
 
     private void loadInitialFragment() {
@@ -156,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
 
     @Override
     public void setShabadAdapter(AutoCompleteShabadAdapter autoCompleteShabadAdapter) {
-        actvCenter.setAdapter(autoCompleteShabadAdapter);
+        actvShabad.setAdapter(autoCompleteShabadAdapter);
     }
 
     @Override
@@ -199,6 +225,16 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
 
     @Override
     public void notifyCenterConflict(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifySewaTagMissing(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifySewaDateTimeMissing(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 

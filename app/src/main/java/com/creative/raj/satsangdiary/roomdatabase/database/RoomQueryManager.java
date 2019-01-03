@@ -14,6 +14,11 @@ public class RoomQueryManager {
         RoomParser.parseAllAreaList(allAreas);
     }
 
+    public static void getOtherAreas(DiaryDatabase database, int currentAreaId) {
+        List<Area> otherAreas = database.areaDao().getOtherAreas(currentAreaId);
+        RoomParser.parseOtherAreaList(otherAreas);
+    }
+
     public static void getAllAssociatedCenters(DiaryDatabase database, int areaId) {
         List<Center> centersByArea = database.areaCenterDao().getCentersByArea(areaId);
         RoomParser.parseAllAssociatedCenters(centersByArea);

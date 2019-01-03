@@ -9,12 +9,17 @@ import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
 import com.creative.raj.satsangdiary.roomdatabase.entities.AreaCenterRelation;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Center;
+import com.creative.raj.satsangdiary.roomdatabase.entities.CentralRelation;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
+import com.creative.raj.satsangdiary.utils.NumberCodes;
+
+import java.sql.NClob;
 
 public class EntryProcessorImpl {
 
     private EntryProcessor entryProcessor;
     private String sewaTypeTag;
+    private String sewaDateTime;
 
     public EntryProcessorImpl(Context context, EntryProcessor entryProcessor) {
         this.entryProcessor = entryProcessor;
@@ -30,6 +35,7 @@ public class EntryProcessorImpl {
                 int centerId;
                 int shabadId;
                 int remarksId;
+                int centralRelationId;
 
                 long areaCenterRelationId;
 
@@ -42,13 +48,19 @@ public class EntryProcessorImpl {
                 String selectedShabadText = entryProcessor.getSelectedShabadText();
 
                 if (selectedAreaName.trim().isEmpty()) {
-                    return -1;
+                    return NumberCodes.ERROR_AREA_MISSING;
                 }
                 if (selectedCenterName.trim().isEmpty()) {
-                    return -2;
+                    return NumberCodes.ERROR_CENTER_MISSING;
                 }
                 if (selectedShabadText.trim().isEmpty()) {
-                    return -3;
+                    return NumberCodes.ERROR_SHABAD_MISSING;
+                }
+                if (sewaTypeTag == null) {
+                    return NumberCodes.ERROR_REMARKS_MISSING;
+                }
+                if (sewaDateTime == null) {
+                    return NumberCodes.ERROR_DATE_TIME_MISSING;
                 }
 
                 Area areaIfExists = DiaryDatabase.getInstance().areaDao().getSelectedArea(selectedAreaName);
@@ -82,30 +94,40 @@ public class EntryProcessorImpl {
                 }
 
                 if (flagIsAreaNew && !flagIsCenterNew) {
-                    return -4;
+                    return NumberCodes.ERROR_CENTER_ALREADY_EXISTS;
                 }
 
-                return 0;
+                remarksId = Integer.parseInt(getSewaTypeTag());
+
+                centralRelationId = (int) addNewCentralRelation(centerId, shabadId, remarksId, getSewaDateTime());
+
+                return NumberCodes.SAVE_SUCCESS;
             }
 
             @Override
             protected void onPostExecute(Integer responseCode) {
                 super.onPostExecute(responseCode);
                 switch (responseCode) {
-                    case 0:
+                    case NumberCodes.SAVE_SUCCESS:
                         entryProcessor.dataSaved("Data is added successfully");
                         break;
-                    case -1:
+                    case NumberCodes.ERROR_AREA_MISSING:
                         entryProcessor.notifyAreaNameMissing("Area name is Missing...");
                         break;
-                    case -2:
+                    case NumberCodes.ERROR_CENTER_MISSING:
                         entryProcessor.notifyCenterNameMissing("Center name is Missing...");
                         break;
-                    case -3:
+                    case NumberCodes.ERROR_SHABAD_MISSING:
                         entryProcessor.notifyShabadTextMissing("Shabad is Missing...");
                         break;
-                    case -4:
+                    case NumberCodes.ERROR_CENTER_ALREADY_EXISTS:
                         entryProcessor.notifyCenterConflict("Center You are trying to enter already exists to some other Area.");
+                        break;
+                    case NumberCodes.ERROR_REMARKS_MISSING:
+                        entryProcessor.notifySewaTagMissing("Sewa Remarks are missing...");
+                        break;
+                    case NumberCodes.ERROR_DATE_TIME_MISSING:
+                        entryProcessor.notifySewaDateTimeMissing("Sewa Date Time is Missing...");
                         break;
                 }
             }
@@ -115,6 +137,15 @@ public class EntryProcessorImpl {
     private boolean suchRelationNotExists(int areaId, int centerId) {
         AreaCenterRelation relationExists = DiaryDatabase.getInstance().areaCenterDao().lookIfSuchRelationExists(areaId, centerId);
         return relationExists == null;
+    }
+
+    private long addNewCentralRelation(int centerId, int shabadId, int remarksId, String dateTime) {
+        CentralRelation centralRelation = new CentralRelation();
+        centralRelation.setCenterId(centerId);
+        centralRelation.setShabadId(shabadId);
+        centralRelation.setRemarksId(remarksId);
+        centralRelation.setDateTime(dateTime);
+        return DiaryDatabase.getInstance().centralRelationDao().insertNewCentralRelation(centralRelation);
     }
 
     private long addNewArea(String selectedAreaName) {
@@ -143,10 +174,18 @@ public class EntryProcessorImpl {
     }
 
     public void setSewaTypeTag(Object sewaTypeTag) {
-        String tag = String.valueOf(sewaTypeTag);
-        switch (tag) {
-            case "spl":
-                sewaTypeTag = "3";
-        }
+        this.sewaTypeTag = (String) sewaTypeTag;
+    }
+
+    public String getSewaTypeTag() {
+        return sewaTypeTag;
+    }
+
+    public String getSewaDateTime() {
+        return sewaDateTime;
+    }
+
+    public void setSewaDateTime(String sewaDateTime) {
+        this.sewaDateTime = sewaDateTime;
     }
 }

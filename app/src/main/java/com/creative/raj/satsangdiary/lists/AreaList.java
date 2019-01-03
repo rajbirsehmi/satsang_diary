@@ -19,19 +19,19 @@ public class AreaList {
         }
     }
 
-    public static void addAreaItemToList(Area area) {
+    public static void addAreaToList(Area area) {
         listArea.add(area);
     }
 
-    public static Area getAreaItemFromList(int position) {
+    public static Area getAreaFromList(int position) {
         return listArea.get(position);
     }
 
-    public static void removeAreaItemFromList(int position) {
+    public static void removeAreaFromList(int position) {
         listArea.remove(position);
     }
 
-    public static void removeAreaItemFromList(Area areaitem) {
+    public static void removeAreaFromList(Area areaitem) {
         listArea.remove(areaitem);
     }
 

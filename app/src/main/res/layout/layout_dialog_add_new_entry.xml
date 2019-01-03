@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:completionThreshold="1"
+        android:imeOptions="flagNoExtractUi"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_actv" />
 
@@ -41,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:completionThreshold="1"
+        android:imeOptions="flagNoExtractUi"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_actv" />
 
@@ -56,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:completionThreshold="1"
+        android:imeOptions="flagNoExtractUi"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_actv" />
 
@@ -93,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:tag="spl"
+            android:tag="3"
             android:text="@string/label_special_sewa" />
 
         <RadioButton
@@ -101,7 +104,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:checked="true"
+            android:tag="4"
             android:text="@string/label_none" />
     </RadioGroup>
 
