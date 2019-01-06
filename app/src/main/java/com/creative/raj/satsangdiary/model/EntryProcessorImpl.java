@@ -13,8 +13,6 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.CentralRelation;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
 import com.creative.raj.satsangdiary.utils.NumberCodes;
 
-import java.sql.NClob;
-
 public class EntryProcessorImpl {
 
     private EntryProcessor entryProcessor;
@@ -89,6 +87,16 @@ public class EntryProcessorImpl {
                     shabadId = shabadIfExists.getShabadId();
                 }
 
+                remarksId = Integer.parseInt(getSewaTypeTag());
+
+                CentralRelation centralRelation = DiaryDatabase.getInstance().centralRelationDao().getCentralRelation(centerId, shabadId, getSewaDateTime());
+
+                if (centralRelation == null) {
+                    centralRelationId = (int) addNewCentralRelation(centerId, shabadId, remarksId, getSewaDateTime());
+                } else {
+                    return NumberCodes.ERROR_RELATION_ALREADY_EXISTS;
+                }
+
                 if ((flagIsAreaNew && flagIsCenterNew) || (!flagIsAreaNew && flagIsCenterNew)) {
                     areaCenterRelationId = addNewAreaCenterRelation(areaId, centerId);
                 }
@@ -97,19 +105,17 @@ public class EntryProcessorImpl {
                     return NumberCodes.ERROR_CENTER_ALREADY_EXISTS;
                 }
 
-                remarksId = Integer.parseInt(getSewaTypeTag());
-
-                centralRelationId = (int) addNewCentralRelation(centerId, shabadId, remarksId, getSewaDateTime());
-
-                return NumberCodes.SAVE_SUCCESS;
+                return NumberCodes.THREAD_NATURAL_DEATH;
             }
 
             @Override
             protected void onPostExecute(Integer responseCode) {
                 super.onPostExecute(responseCode);
                 switch (responseCode) {
-                    case NumberCodes.SAVE_SUCCESS:
+                    case NumberCodes.THREAD_NATURAL_DEATH:
                         entryProcessor.dataSaved("Data is added successfully");
+                        setSewaDateTime(null);
+                        setSewaTypeTag(null);
                         break;
                     case NumberCodes.ERROR_AREA_MISSING:
                         entryProcessor.notifyAreaNameMissing("Area name is Missing...");
@@ -128,6 +134,9 @@ public class EntryProcessorImpl {
                         break;
                     case NumberCodes.ERROR_DATE_TIME_MISSING:
                         entryProcessor.notifySewaDateTimeMissing("Sewa Date Time is Missing...");
+                        break;
+                    case NumberCodes.ERROR_RELATION_ALREADY_EXISTS:
+                        entryProcessor.notifyRelationAleadyExists("You already have same data existing...");
                         break;
                 }
             }
@@ -173,12 +182,12 @@ public class EntryProcessorImpl {
         return DiaryDatabase.getInstance().shabadDao().insertNewShabad(shabad);
     }
 
-    public void setSewaTypeTag(Object sewaTypeTag) {
-        this.sewaTypeTag = (String) sewaTypeTag;
-    }
-
     public String getSewaTypeTag() {
         return sewaTypeTag;
+    }
+
+    public void setSewaTypeTag(Object sewaTypeTag) {
+        this.sewaTypeTag = (String) sewaTypeTag;
     }
 
     public String getSewaDateTime() {

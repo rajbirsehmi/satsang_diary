@@ -3,7 +3,7 @@ package com.creative.raj.satsangdiary.dataholders.selectedarea;
 public class ExpandedData {
     private int relationId;
     private String shabad;
-    private long dateTime;
+    private String dateTime;
     private String remarks;
 
     public int getRelationId() {
@@ -22,11 +22,11 @@ public class ExpandedData {
         this.shabad = shabad;
     }
 
-    public long getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(long dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 

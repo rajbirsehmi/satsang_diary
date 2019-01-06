@@ -21,4 +21,6 @@ public interface EntryProcessor {
     void notifySewaTagMissing(String message);
 
     void notifySewaDateTimeMissing(String message);
+
+    void notifyRelationAleadyExists(String message);
 }

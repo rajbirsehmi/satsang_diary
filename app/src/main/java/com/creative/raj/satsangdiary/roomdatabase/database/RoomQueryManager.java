@@ -5,6 +5,7 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Center;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Remarks;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
+import com.creative.raj.satsangdiary.roomdatabase.entities.ShabadDoneInCenter;
 
 import java.util.List;
 
@@ -35,6 +36,16 @@ public class RoomQueryManager {
         RoomParser.parseAllShabad(allShabad);
     }
 
+    public static List<ShabadDoneInCenter> getShabadDoneInOtherCenter(DiaryDatabase database, int areaId) {
+        List<ShabadDoneInCenter> shabadDoneInCenters = database.shabadCenterRelationDao().getShabadDoneInOtherCenter(areaId);
+        return shabadDoneInCenters;
+    }
+
+    public static List<ShabadDoneInCenter> getShabadDoneInCenter(DiaryDatabase database, int centerId) {
+        List<ShabadDoneInCenter> shabadDoneInCenters = database.shabadCenterRelationDao().getShabadDoneInCenter(centerId);
+        return shabadDoneInCenters;
+    }
+
     public static void injectRemarks(DiaryDatabase database) {
         Remarks remarkFirstSewa = new Remarks();
         remarkFirstSewa.setRemarksText("1st Sewa");
@@ -51,5 +62,9 @@ public class RoomQueryManager {
         Remarks remarkNone = new Remarks();
         remarkNone.setRemarksText("");
         long res4 = database.remarksDao().insertRemarks(remarkNone);
+    }
+
+    public static Area getSelectedArea(DiaryDatabase database, int selectedAreaId) {
+        return database.areaDao().getSelectedArea(selectedAreaId);
     }
 }

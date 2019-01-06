@@ -52,24 +52,24 @@ public class Parser {
         return centerName;
     }
 
-    public static ArrayList<ExpandedData> parseShabadAndCenterData(Cursor cursor) {
-        ArrayList<ExpandedData> arrTemp = new ArrayList<>();
-        ExpandedData expandedData;
-        while (cursor.moveToNext()) {
-            expandedData = new ExpandedData();
-            int relationId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("relation_id")));
-            String shabad = cursor.getString(cursor.getColumnIndex("shabad_text"));
-            String remarks = cursor.getString(cursor.getColumnIndex("remarks_text"));
-            long dateTime = Long.parseLong(cursor.getString(cursor.getColumnIndex("date_time")));
-            expandedData.setDateTime(dateTime);
-            expandedData.setRelationId(relationId);
-            expandedData.setRemarks(remarks);
-            expandedData.setShabad(shabad);
-            arrTemp.add(expandedData);
-        }
-        cursor.close();
-        return arrTemp;
-    }
+//    public static ArrayList<ExpandedData> parseShabadAndCenterData(Cursor cursor) {
+//        ArrayList<ExpandedData> arrTemp = new ArrayList<>();
+//        ExpandedData expandedData;
+//        while (cursor.moveToNext()) {
+//            expandedData = new ExpandedData();
+//            int relationId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("relation_id")));
+//            String shabad = cursor.getString(cursor.getColumnIndex("shabad_text"));
+//            String remarks = cursor.getString(cursor.getColumnIndex("remarks_text"));
+//            long dateTime = Long.parseLong(cursor.getString(cursor.getColumnIndex("date_time")));
+//            expandedData.setDateTime(dateTime);
+//            expandedData.setRelationId(relationId);
+//            expandedData.setRemarks(remarks);
+//            expandedData.setShabad(shabad);
+//            arrTemp.add(expandedData);
+//        }
+//        cursor.close();
+//        return arrTemp;
+//    }
 
     public static List<DataHolder> parseShabadList(Cursor cursor) {
         List<DataHolder> list = new ArrayList<>();
@@ -115,19 +115,19 @@ public class Parser {
         return ids;
     }
 
-    public static ArrayList<com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData> parseShabadDoneinOtherCenters(Cursor cursorShabadDoneInOtherCenters) {
-        ArrayList<com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData> list = new ArrayList<>();
-        while (cursorShabadDoneInOtherCenters.moveToNext()) {
-            com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData expandedData = new com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData();
-            expandedData.setRelationId(Integer.parseInt(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("relation_id"))));
-            expandedData.setDatetime(Long.parseLong(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("date_time"))));
-            expandedData.setCenterName(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("center_name")));
-            expandedData.setRemarks(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("remarks")));
-            expandedData.setShabad(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("shabad")));
-            list.add(expandedData);
-        }
-        return list;
-    }
+//    public static ArrayList<com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData> parseShabadDoneinOtherCenters(Cursor cursorShabadDoneInOtherCenters) {
+//        ArrayList<com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData> list = new ArrayList<>();
+//        while (cursorShabadDoneInOtherCenters.moveToNext()) {
+//            com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData expandedData = new com.creative.raj.satsangdiary.dataholders.otherarea.ExpandedData();
+//            expandedData.setRelationId(Integer.parseInt(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("relation_id"))));
+//            expandedData.setDatetime(Long.parseLong(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("date_time"))));
+//            expandedData.setCenterName(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("center_name")));
+//            expandedData.setRemarks(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("remarks")));
+//            expandedData.setShabad(cursorShabadDoneInOtherCenters.getString(cursorShabadDoneInOtherCenters.getColumnIndex("shabad")));
+//            list.add(expandedData);
+//        }
+//        return list;
+//    }
 
     public static List<Area> parseAllAreas(Cursor cursorAllAreas) {
         AreaList.createInstance();

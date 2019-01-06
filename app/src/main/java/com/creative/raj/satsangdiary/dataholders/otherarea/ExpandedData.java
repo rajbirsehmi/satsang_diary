@@ -5,7 +5,7 @@ public class ExpandedData {
     private int relationId;
     private String centerName;
     private String shabad;
-    private long datetime;
+    private String datetime;
     private String remarks;
 
     public int getRelationId() {
@@ -32,11 +32,11 @@ public class ExpandedData {
         this.shabad = shabad;
     }
 
-    public long getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(long datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 

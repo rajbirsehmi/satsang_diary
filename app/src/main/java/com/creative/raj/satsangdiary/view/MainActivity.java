@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
@@ -13,9 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
@@ -31,6 +27,7 @@ import com.creative.raj.satsangdiary.presenter.DataRetriever;
 import com.creative.raj.satsangdiary.presenter.EntryProcessor;
 import com.creative.raj.satsangdiary.presenter.FragmentProcessor;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
+import com.creative.raj.satsangdiary.services.UpdateViewService;
 import com.creative.raj.satsangdiary.utils.ActivityUtils;
 import com.creative.raj.satsangdiary.utils.FragmentConstants;
 import com.github.clans.fab.FloatingActionMenu;
@@ -39,6 +36,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements FragmentProcessor, EntryProcessor, DataRetriever {
 
@@ -111,9 +111,10 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         DatePickerDialog datePickerDialog = new DatePickerDialog(this);
         datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(year, month, dayOfMonth);
-            entryProcessor.setSewaDateTime(String.valueOf(calendar.getTimeInMillis()));
-            ((Button)(dialogAddEntry.findViewById(R.id.btn_select_date_time))).setText(new SimpleDateFormat("EEEE, MMM dd, YYYY").format(new Date(Long.parseLong(entryProcessor.getSewaDateTime()))));
+            calendar.set(year, month, dayOfMonth, 0, 0, 0);
+            String formattedDate = new SimpleDateFormat("EEEE, MMM dd, YYYY").format(new Date(calendar.getTimeInMillis()));
+            entryProcessor.setSewaDateTime(formattedDate);
+            ((Button) (dialogAddEntry.findViewById(R.id.btn_select_date_time))).setText(formattedDate);
         });
         datePickerDialog.show();
     }
@@ -221,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
         if (dialogAddEntry.isShowing()) {
             dialogAddEntry.dismiss();
         }
+        startService(new Intent(getBaseContext(), UpdateViewService.class));
     }
 
     @Override
@@ -235,6 +237,11 @@ public class MainActivity extends AppCompatActivity implements FragmentProcessor
 
     @Override
     public void notifySewaDateTimeMissing(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void notifyRelationAleadyExists(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 

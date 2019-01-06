@@ -1,5 +1,9 @@
 package com.creative.raj.satsangdiary.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +15,6 @@ import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.SelectedAreaAdapter;
 import com.creative.raj.satsangdiary.model.SelectedAreaImpl;
 import com.creative.raj.satsangdiary.presenter.SelectedArea;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,6 +22,13 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
 
     private SelectedAreaImpl selectedArea;
     private ExpandableListView elvSelecedArea;
+
+    private BroadcastReceiver brUpdateSelectedArea = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            selectedArea.loadSelectedAreaData();
+        }
+    };
 
     public SelectedAreaFragment() {
         // Required empty public constructor
@@ -34,10 +44,16 @@ public class SelectedAreaFragment extends Fragment implements SelectedArea {
     @Override
     public void onResume() {
         super.onResume();
-//        fabAdd = getActivity().findViewById(R.id.fab_add);
+        getActivity().registerReceiver(brUpdateSelectedArea, new IntentFilter("update_selected_area"));
         elvSelecedArea = getActivity().findViewById(R.id.elv_selected_area);
-        selectedArea = new SelectedAreaImpl(this, getContext());
+        selectedArea = new SelectedAreaImpl(getContext(), this);
         selectedArea.loadSelectedAreaData();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(brUpdateSelectedArea);
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.creative.raj.satsangdiary.fragments;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,13 @@ public class OtherAreaFragment extends Fragment implements OtherArea {
     private OtherAreaImpl otherArea;
     private ExpandableListView elvOtherArea;
 
+    private BroadcastReceiver brUpdateOtherArea = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            otherArea.loadOtherAreas();
+        }
+    };
+
     public OtherAreaFragment() {
         // Required empty public constructor
     }
@@ -36,13 +47,20 @@ public class OtherAreaFragment extends Fragment implements OtherArea {
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().registerReceiver(brUpdateOtherArea, new IntentFilter("update_other_area"));
         elvOtherArea = getActivity().findViewById(R.id.elv_other_area);
         otherArea = new OtherAreaImpl(getContext(), this);
         otherArea.loadOtherAreas();
     }
 
     @Override
-    public void attachAdapterToList(OtherAreaAdapter otherAreaAdapter) {
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(brUpdateOtherArea);
+    }
 
+    @Override
+    public void attachAdapterToList(OtherAreaAdapter otherAreaAdapter) {
+        elvOtherArea.setAdapter(otherAreaAdapter);
     }
 }

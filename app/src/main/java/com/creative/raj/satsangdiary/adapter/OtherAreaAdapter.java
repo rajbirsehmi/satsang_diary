@@ -1,10 +1,12 @@
 package com.creative.raj.satsangdiary.adapter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.creative.raj.satsangdiary.R;
@@ -62,6 +64,10 @@ public class OtherAreaAdapter extends BaseExpandableListAdapter {
         String areaName = (String) getGroup(groupPosition);
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_other_area_name, parent, false);
         ((TextView) convertView.findViewById(R.id.tv_area_name)).setText(areaName);
+        if (isExpanded)
+            ((ImageView) convertView.findViewById(R.id.iv_arrow)).setImageDrawable(convertView.getContext().getResources().getDrawable(R.drawable.icon_arrow_up));
+        else
+            ((ImageView) convertView.findViewById(R.id.iv_arrow)).setImageDrawable(convertView.getContext().getResources().getDrawable(R.drawable.icon_arrow_down));
         return convertView;
     }
 
@@ -71,7 +77,7 @@ public class OtherAreaAdapter extends BaseExpandableListAdapter {
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_other_center_shabad_detail, parent, false);
         ((TextView) convertView.findViewById(R.id.tv_center_name)).setText(expandedData.getCenterName());
         ((TextView) convertView.findViewById(R.id.tv_shabad)).setText(expandedData.getShabad());
-        ((TextView) convertView.findViewById(R.id.tv_date_time)).setText(Parser.parseDateTime(expandedData.getDatetime()));
+        ((TextView) convertView.findViewById(R.id.tv_date_time)).setText(expandedData.getDatetime());
         ((TextView) convertView.findViewById(R.id.tv_remarks)).setText(expandedData.getRemarks());
         return convertView;
     }

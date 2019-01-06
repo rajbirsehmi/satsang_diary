@@ -1,6 +1,10 @@
 package com.creative.raj.satsangdiary.fragments;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -24,6 +28,13 @@ public class AllShabadFragment extends Fragment implements AllShabad {
     private RecyclerView rvAllShabad;
     private AllShabadImpl allShabad;
 
+    private BroadcastReceiver brUpdateShabadList = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            allShabad.loadAllShabad();
+        }
+    };
+
     public AllShabadFragment() {
         // Required empty public constructor
     }
@@ -39,12 +50,20 @@ public class AllShabadFragment extends Fragment implements AllShabad {
     public void onResume() {
         super.onResume();
 
+        getActivity().registerReceiver(brUpdateShabadList, new IntentFilter("update_shabad_list"));
+
         rvAllShabad = getActivity().findViewById(R.id.rv_all_shabad);
         rvAllShabad.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         rvAllShabad.setItemAnimator(new DefaultItemAnimator());
 
         allShabad = new AllShabadImpl(this, getActivity().getBaseContext());
         allShabad.loadAllShabad();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(brUpdateShabadList);
     }
 
     @Override
@@ -56,4 +75,5 @@ public class AllShabadFragment extends Fragment implements AllShabad {
     public void notifyNoShabadFound(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
 }
