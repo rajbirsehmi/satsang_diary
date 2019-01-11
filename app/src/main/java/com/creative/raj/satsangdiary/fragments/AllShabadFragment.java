@@ -55,7 +55,6 @@ public class AllShabadFragment extends Fragment implements AllShabad {
         rvAllShabad = getActivity().findViewById(R.id.rv_all_shabad);
         rvAllShabad.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         rvAllShabad.setItemAnimator(new DefaultItemAnimator());
-
         allShabad = new AllShabadImpl(this, getActivity().getBaseContext());
         allShabad.loadAllShabad();
     }

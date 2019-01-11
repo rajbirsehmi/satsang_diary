@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.dataholders.populators.Shabad;
 import com.creative.raj.satsangdiary.dataholders.shabad.DataHolder;
+import com.creative.raj.satsangdiary.listeners.EditShabadListener;
 
 public class AllShabadViewHolder extends RecyclerView.ViewHolder {
 
@@ -20,5 +21,9 @@ public class AllShabadViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(Shabad shabad) {
         tvShabadText.setText(shabad.getText());
+    }
+
+    public void setOnLongClickListener(EditShabadListener editShabadListener) {
+        itemView.setOnLongClickListener(editShabadListener);
     }
 }

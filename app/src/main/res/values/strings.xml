@@ -27,4 +27,7 @@
     <string name="label_restore_data">Restore all data</string>
     <string name="label_about_app">About App...</string>
     <string name="version_code">Version : 2.0</string>
+    <string name="save_changes">Save Changes...</string>
+    <string name="label_edit_shabad">Edit Shabad</string>
+    <string name="dismiss_changes">DIsmiss</string>
 </resources>
