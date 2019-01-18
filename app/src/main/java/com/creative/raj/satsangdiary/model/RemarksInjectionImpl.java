@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import com.creative.raj.satsangdiary.persistence.Cache;
 import com.creative.raj.satsangdiary.presenter.RemarksInjection;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
-import com.creative.raj.satsangdiary.roomdatabase.database.RoomQueryManager;
+import com.creative.raj.satsangdiary.roomdatabase.database.QueryOrganiser;
 
 public class RemarksInjectionImpl {
 
@@ -25,7 +25,7 @@ public class RemarksInjectionImpl {
                 if (Cache.getRemarksInjectionStatus(context)) {
                     return 1;
                 }
-                RoomQueryManager.injectRemarks(DiaryDatabase.getInstance());
+                QueryOrganiser.injectRemarks(DiaryDatabase.getInstance());
                 return 0;
             }
 

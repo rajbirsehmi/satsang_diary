@@ -19,7 +19,6 @@ public class UpdateViewService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("update_service", "onStartCommand: HEllo world");
         updateSelectedArea();
         updateOtherArea();
         updateShabadList();

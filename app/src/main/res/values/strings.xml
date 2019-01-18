@@ -30,4 +30,5 @@
     <string name="save_changes">Save Changes...</string>
     <string name="label_edit_shabad">Edit Shabad</string>
     <string name="dismiss_changes">DIsmiss</string>
+    <string name="placeholder_text">This is placeholder Text</string>
 </resources>

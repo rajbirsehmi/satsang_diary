@@ -143,6 +143,7 @@ public class EntryProcessorImpl {
         }.execute();
     }
 
+    // I am not using this method anymore.
     private boolean suchRelationNotExists(int areaId, int centerId) {
         AreaCenterRelation relationExists = DiaryDatabase.getInstance().areaCenterDao().lookIfSuchRelationExists(areaId, centerId);
         return relationExists == null;

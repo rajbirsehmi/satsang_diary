@@ -12,7 +12,7 @@ import com.creative.raj.satsangdiary.lists.OtherAreaList;
 import com.creative.raj.satsangdiary.persistence.Cache;
 import com.creative.raj.satsangdiary.presenter.OtherArea;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
-import com.creative.raj.satsangdiary.roomdatabase.database.RoomQueryManager;
+import com.creative.raj.satsangdiary.roomdatabase.database.QueryOrganiser;
 import com.creative.raj.satsangdiary.roomdatabase.entities.ShabadDoneInCenter;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class OtherAreaImpl {
             protected List<DataHolder> doInBackground(Void... voids) {
                 if (Debug.isDebuggerConnected())
                     Debug.waitForDebugger();
-                RoomQueryManager.getOtherAreas(DiaryDatabase.getInstance(), Cache.getCurrentSelectedAreaId(context));
+                QueryOrganiser.getOtherAreas(DiaryDatabase.getInstance(), Cache.getCurrentSelectedAreaId(context));
 
                 List<DataHolder> dataHolders = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class OtherAreaImpl {
                     holder.setAreaName(areaName);
                     ArrayList<ExpandedData> expandedData = new ArrayList<>();
 
-                    for (ShabadDoneInCenter shabadDoneInCenter : RoomQueryManager.getShabadDoneInOtherCenter(DiaryDatabase.getInstance(), areaId)) {
+                    for (ShabadDoneInCenter shabadDoneInCenter : QueryOrganiser.getShabadDoneInOtherCenter(DiaryDatabase.getInstance(), areaId)) {
                         ExpandedData data = new ExpandedData();
                         data.setCenterName(shabadDoneInCenter.getCenter().getCenterName());
                         data.setDatetime(shabadDoneInCenter.getCentralRelation().getDateTime());

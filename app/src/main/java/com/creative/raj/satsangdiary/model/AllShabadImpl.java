@@ -8,7 +8,7 @@ import com.creative.raj.satsangdiary.adapter.AllShabadAdapter;
 import com.creative.raj.satsangdiary.lists.ShabadList;
 import com.creative.raj.satsangdiary.presenter.AllShabad;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
-import com.creative.raj.satsangdiary.roomdatabase.database.RoomQueryManager;
+import com.creative.raj.satsangdiary.roomdatabase.database.QueryOrganiser;
 
 public class AllShabadImpl {
     private AllShabad allShabad;
@@ -25,7 +25,7 @@ public class AllShabadImpl {
             protected Void doInBackground(Void... voids) {
                 if (Debug.isDebuggerConnected())
                     Debug.waitForDebugger();
-                RoomQueryManager.getAllShabads(DiaryDatabase.getInstance());
+                QueryOrganiser.getAllShabads(DiaryDatabase.getInstance());
                 return null;
             }
 

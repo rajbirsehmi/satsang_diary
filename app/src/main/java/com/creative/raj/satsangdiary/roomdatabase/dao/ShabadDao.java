@@ -5,9 +5,11 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.Shabad;
 import java.util.List;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface ShabadDao {
@@ -23,4 +25,10 @@ public interface ShabadDao {
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
     long insertNewShabad(Shabad shabad);
+
+    @Update
+    int updateShabad(Shabad modifiedShabad);
+
+    @Delete
+    int removeShabad(Shabad modifiedShabad);
 }

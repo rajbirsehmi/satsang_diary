@@ -9,10 +9,16 @@
         android:roundIcon="@drawable/icon_diary"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <service
-            android:name="com.creative.raj.satsangdiary.services.UpdateViewService"
+            android:name=".services.ModificationNotifierService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <service
+            android:name=".services.UpdateViewService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".view.SplashActivity"
@@ -23,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.SettingsActivity"
             android:label="@string/label_settings"
@@ -33,6 +40,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.MainActivity"
             android:screenOrientation="portrait" />

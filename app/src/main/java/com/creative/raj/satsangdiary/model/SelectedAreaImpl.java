@@ -12,7 +12,7 @@ import com.creative.raj.satsangdiary.lists.CenterList;
 import com.creative.raj.satsangdiary.persistence.Cache;
 import com.creative.raj.satsangdiary.presenter.SelectedArea;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
-import com.creative.raj.satsangdiary.roomdatabase.database.RoomQueryManager;
+import com.creative.raj.satsangdiary.roomdatabase.database.QueryOrganiser;
 import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
 import com.creative.raj.satsangdiary.roomdatabase.entities.ShabadDoneInCenter;
 
@@ -40,11 +40,11 @@ public class SelectedAreaImpl {
             protected List<DataHolder> doInBackground(Void... voids) {
                 if (Debug.isDebuggerConnected())
                     Debug.waitForDebugger();
-                Area selectedArea = RoomQueryManager.getSelectedArea(DiaryDatabase.getInstance(), Cache.getCurrentSelectedAreaId(context));
+                Area selectedArea = QueryOrganiser.getSelectedArea(DiaryDatabase.getInstance(), Cache.getCurrentSelectedAreaId(context));
                 int areaId = selectedArea.getAreaId();
                 String areaName = selectedArea.getAreaName();
 
-                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaId);
+                QueryOrganiser.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaId);
 
                 List<DataHolder> dataHolders = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class SelectedAreaImpl {
                     holder.setCenterId(center.getId());
                     holder.setCenterName(center.getName());
 
-                    List<ShabadDoneInCenter> shabadDoneInCenter = RoomQueryManager.getShabadDoneInCenter(DiaryDatabase.getInstance(), holder.getCenterId());
+                    List<ShabadDoneInCenter> shabadDoneInCenter = QueryOrganiser.getShabadDoneInCenter(DiaryDatabase.getInstance(), holder.getCenterId());
                     for (ShabadDoneInCenter _shabadDoneInCenter : shabadDoneInCenter) {
                         ExpandedData data = new ExpandedData();
                         data.setRelationId(_shabadDoneInCenter.getCentralRelation().getRelationId());

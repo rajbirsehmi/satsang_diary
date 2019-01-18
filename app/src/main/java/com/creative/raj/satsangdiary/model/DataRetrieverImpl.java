@@ -2,7 +2,6 @@ package com.creative.raj.satsangdiary.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Debug;
 
 import com.creative.raj.satsangdiary.R;
 import com.creative.raj.satsangdiary.adapter.AutoCompleteAllAreaAdapter;
@@ -13,8 +12,7 @@ import com.creative.raj.satsangdiary.lists.CenterList;
 import com.creative.raj.satsangdiary.lists.ShabadList;
 import com.creative.raj.satsangdiary.presenter.DataRetriever;
 import com.creative.raj.satsangdiary.roomdatabase.database.DiaryDatabase;
-import com.creative.raj.satsangdiary.roomdatabase.database.RoomQueryManager;
-import com.creative.raj.satsangdiary.roomdatabase.entities.Area;
+import com.creative.raj.satsangdiary.roomdatabase.database.QueryOrganiser;
 
 public class DataRetrieverImpl {
 
@@ -32,7 +30,7 @@ public class DataRetrieverImpl {
             protected Boolean doInBackground(Void... voids) {
                 if(android.os.Debug.isDebuggerConnected())
                     android.os.Debug.waitForDebugger();
-                RoomQueryManager.getAllAreas(DiaryDatabase.getInstance());
+                QueryOrganiser.getAllAreas(DiaryDatabase.getInstance());
                 return true;
             }
 
@@ -50,7 +48,7 @@ public class DataRetrieverImpl {
             protected Void doInBackground(Void... voids) {
                 if(android.os.Debug.isDebuggerConnected())
                     android.os.Debug.waitForDebugger();
-                RoomQueryManager.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaName);
+                QueryOrganiser.getAllAssociatedCenters(DiaryDatabase.getInstance(), areaName);
                 return null;
             }
 
@@ -69,7 +67,7 @@ public class DataRetrieverImpl {
             protected Void doInBackground(Void... voids) {
                 if(android.os.Debug.isDebuggerConnected())
                     android.os.Debug.waitForDebugger();
-                RoomQueryManager.getAllShabads(DiaryDatabase.getInstance());
+                QueryOrganiser.getAllShabads(DiaryDatabase.getInstance());
                 return null;
             }
 

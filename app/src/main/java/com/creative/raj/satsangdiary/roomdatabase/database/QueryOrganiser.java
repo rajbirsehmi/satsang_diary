@@ -9,7 +9,7 @@ import com.creative.raj.satsangdiary.roomdatabase.entities.ShabadDoneInCenter;
 
 import java.util.List;
 
-public class RoomQueryManager {
+public class QueryOrganiser {
     public static void getAllAreas(DiaryDatabase database) {
         List<Area> allAreas = database.areaDao().getAllAreas();
         RoomParser.parseAllAreaList(allAreas);
@@ -66,5 +66,13 @@ public class RoomQueryManager {
 
     public static Area getSelectedArea(DiaryDatabase database, int selectedAreaId) {
         return database.areaDao().getSelectedArea(selectedAreaId);
+    }
+
+    public static int updateExistingShabad(DiaryDatabase database, Shabad modifiedShabad) {
+        return database.shabadDao().updateShabad(modifiedShabad);
+    }
+
+    public static int removeShabad(DiaryDatabase database, Shabad shabadToRemove) {
+        return database.shabadDao().removeShabad(shabadToRemove);
     }
 }
