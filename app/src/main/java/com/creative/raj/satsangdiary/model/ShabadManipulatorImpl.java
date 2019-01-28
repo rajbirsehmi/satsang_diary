@@ -33,7 +33,7 @@ public class ShabadManipulatorImpl {
             @Override
             protected void onPostExecute(Integer result) {
                 super.onPostExecute(result);
-                if (result != 0) {
+                if (result != 1) {
                     shabadManipulator.callbackEditFailed("Error Occured While Updating Shabad");
                     return;
                 }
@@ -59,7 +59,7 @@ public class ShabadManipulatorImpl {
             @Override
             protected void onPostExecute(Integer result) {
                 super.onPostExecute(result);
-                if (result != 0) {
+                if (result != 1) {
                     shabadManipulator.callbackRemoveFailed("Error Occured While Removing Shabad");
                     return;
                 }
