@@ -23,11 +23,9 @@ public class AutoCompleteAreaFilter extends Filter {
         final String searchLowerCase = prefix.toString().toLowerCase();
         List<Area> matchingAreas = new ArrayList<>();
 
-        for (Area area : AreaList.getInstance()) {
-            if (area.getName().toLowerCase().startsWith(searchLowerCase)) {
+        for (Area area : AreaList.getInstance())
+            if (area.getName().toLowerCase().startsWith(searchLowerCase))
                 matchingAreas.add(area);
-            }
-        }
         FilterResults filterResults = new FilterResults();
         filterResults.values = matchingAreas;
         filterResults.count = matchingAreas.size();

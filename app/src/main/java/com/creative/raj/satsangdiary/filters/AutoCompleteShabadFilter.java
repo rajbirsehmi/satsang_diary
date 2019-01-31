@@ -23,11 +23,9 @@ public class AutoCompleteShabadFilter extends Filter {
         final String searchLowerCase = prefix.toString().toLowerCase();
         List<Shabad> matchingShabads = new ArrayList<>();
 
-        for (Shabad shabad : ShabadList.getInstance()) {
-            if (shabad.getText().toLowerCase().startsWith(searchLowerCase)) {
+        for (Shabad shabad : ShabadList.getInstance())
+            if (shabad.getText().toLowerCase().startsWith(searchLowerCase))
                 matchingShabads.add(shabad);
-            }
-        }
         FilterResults filterResults = new FilterResults();
         filterResults.values = matchingShabads;
         filterResults.count = matchingShabads.size();

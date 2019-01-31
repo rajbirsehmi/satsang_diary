@@ -23,11 +23,9 @@ public class AutoCompleteCenterFilter extends Filter {
         final String searchLowerCase = prefix.toString().toLowerCase();
         List<Center> matchingCenters = new ArrayList<>();
 
-        for (Center center : CenterList.getInstance()) {
-            if (center.getName().toLowerCase().startsWith(searchLowerCase)) {
+        for (Center center : CenterList.getInstance())
+            if (center.getName().toLowerCase().startsWith(searchLowerCase))
                 matchingCenters.add(center);
-            }
-        }
         FilterResults filterResults = new FilterResults();
         filterResults.values = matchingCenters;
         filterResults.count = matchingCenters.size();

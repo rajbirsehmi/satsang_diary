@@ -57,7 +57,7 @@ public class ShabadContextMenuListener implements View.OnLongClickListener, Shab
     private void raiseDeleteShabadDialog(int shabadId, String shabadText) {
         new AlertDialog.Builder(context)
                 .setTitle("Delete " + shabadText + "?")
-                .setMessage("Are you sure want to delete the Selected Shabad?\n\nRemoving Shabad Will also remove the Sewa you did with this Shabad.\n\nProceed with Caution.!")
+                .setMessage("Are you sure want to delete the Selected Shabad?\n\nRemoving Shabad Will also remove the Sewa(s) you did with this Shabad.\n\nProceed.?")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
